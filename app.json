@@ -1,0 +1,12 @@
+{
+  "name": "MyLogin",
+  "displayName": "MyLogin",
+  "expo": {
+    "name": "MyLogin",
+    "slug": "MyLogin",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
