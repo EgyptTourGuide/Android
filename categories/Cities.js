@@ -2,11 +2,13 @@
 import React from 'react';
 import { Text,View ,StyleSheet,TouchableOpacity, Image} from 'react-native';
 
-export default class Cities extends React.Component {
-    render(){
+const Cities =(props)=>{
+
     return (
+        
       <View style={styles.contain}>
-          <View style={styles.imgcontiner}> 
+     
+            <View style={styles.imgcontiner}> 
                 <TouchableOpacity style={styles.imgview}>
                     <Image style={styles.img}
                      source={require('../pic/cairo.jpg')}/>
@@ -16,27 +18,24 @@ export default class Cities extends React.Component {
                     <Image style={styles.img}
                      source={require('../pic/aswan.jpg')}/>
                       <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>Aswan</Text>
-
                 </TouchableOpacity>
-           </View>
+            </View>
             <View style={styles.imgcontiner}> 
-
                 <TouchableOpacity style={styles.imgview}>
                     <Image style={styles.img}
                      source={require('../pic/Alex.jpeg')}/>
                       <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>Alex</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.imgview} onPress={()=>{this.props.navigation.navigate('City')}}>
+                <TouchableOpacity style={styles.imgview} onPress={()=>props.navigation.navigate('City')}>
                     <Image style={styles.img} 
                     source={require('../pic/loxr.jpg')}/>
-                     <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>Loxour</Text>
+                     <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>Luxor</Text>
                 </TouchableOpacity>
-        </View>
-      
+         </View>
       </View>
-    );}
-  }
+      );
+}
   const styles=StyleSheet.create({
 
     contain:{
@@ -64,4 +63,4 @@ export default class Cities extends React.Component {
     }
   },
   )
-  
+  export default Cities ;

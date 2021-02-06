@@ -6,36 +6,23 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Advanture from '../categories/Advanture'
 import Cities from '../categories/Cities'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
-
-
+import { createStackNavigator } from '@react-navigation/stack'
+import City from './City';
 
 const Tab = createMaterialTopTabNavigator();
+const Stack = createStackNavigator()
 
-      function MyTabs() {
-      
-        return (
-          <View style={{width:'100%',height:'100%',bottom:30,}}>
-          <Tab.Navigator
-                swipeVelocityImpact={0.5}
-                swipeEnabled={false}
-                tabBarOptions={{
-                activeTintColor: "#fff",
-                inactiveTintColor: 'gray',
-                style:{backgroundColor:'rgba(0,0,0,0.0)'}}} 
-       >
-            <Tab.Screen name="Cities" component={Cities}/>
-            <Tab.Screen name="Advanture" component={Advanture} />
-          </Tab.Navigator>
-          </View>
-        );
-      }
 
-        
-
-export default function Homes() {
+const Homes=(props)=>{
+  return(
+        <Stack.Navigator screenOptions={{headerShown:false}}>
+          <Stack.Screen name='Home'component={Home} />
+          <Stack.Screen name='City'component={City} />
+        </Stack.Navigator>
+  )
+}
+ const Home=(props)=> {
     return (
-      
       <View style={styles.contain}>
            <View style={{bottom:40}}>
              <Search/>
@@ -53,14 +40,10 @@ export default function Homes() {
 
 
        <View style={{bottom:40,height:170,}}>
-
-
-          <ScrollView 
-                
+          <ScrollView  
                 horizontal={true} 
                 pagingEnabled
                 >
-              
                    <View>
                            <TouchableOpacity style={{marginLeft:20,marginRight:20}}  onPress={()=>alert("hallo Diving")}>
                                 <Image 
@@ -85,15 +68,26 @@ export default function Homes() {
                                     <Text style={styles.txt}>#Running</Text>
                            </TouchableOpacity>
                    </View>
-
           </ScrollView>
           
        </View>
        <View style={{width:'100%',height:'100%'}}>
       
-         <MyTabs></MyTabs>
+       <View style={{width:'100%',height:'100%',bottom:30,}}>
+          <Tab.Navigator
+                swipeVelocityImpact={0.5}
+                swipeEnabled={false}
+                tabBarOptions={{
+                activeTintColor: "#fff",
+                inactiveTintColor: 'gray',
+                style:{backgroundColor:'rgba(0,0,0,0.0)'}}} 
+       >
+            <Tab.Screen name="Cities" component={Cities}/>
+            <Tab.Screen name="Advanture" component={Advanture}/>
+          </Tab.Navigator>
+          </View>
+
          </View>
-          
       </View>
                   
     );
@@ -134,3 +128,4 @@ export default function Homes() {
  
   )
  
+  export default Homes ;

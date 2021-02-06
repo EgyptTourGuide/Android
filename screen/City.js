@@ -7,7 +7,7 @@ import { Search} from '../component/Textinput';
 
 
 
-export default function City ({navigation}){
+export default function City () {
     
     
     return(
