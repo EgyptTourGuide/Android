@@ -28,6 +28,17 @@ export const ImageCities=()=>{
         
     )
 }
+export const Profimg=()=>{
+    return(
+
+        <Image
+          source={require('../pic/prof.jpg')} 
+          style={{width:140,height:140,borderRadius:70}}
+        />
+        
+    )
+}
+
 
 const styles = StyleSheet.create({
     image:{
