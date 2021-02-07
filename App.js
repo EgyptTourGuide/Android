@@ -1,7 +1,6 @@
 import  React from 'react';
 import  Login from './screen/Login'
 import  Signup from './screen/Signup'
-import  City from './screen/City'
 import  Notification from "./screen/Notification";
 import  Plan from "./screen/Plan";
 import  Profile from "./screen/Profile";
@@ -13,6 +12,7 @@ import  Icon from 'react-native-vector-icons/FontAwesome'
 import  { View } from 'react-native';
 import  Favplans from './screen/Favplans';
 
+
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
 
@@ -23,28 +23,42 @@ let user = {
 }
 
 export default class App extends React.Component {
+
+  state = {
+    user: null
+  }
    
+  changeUser = ()=>{
+    console.log("inside change user")
+    this.setState({
+      user: {
+        username: "hossam",
+        fullname: "Hossam",
+        email: "hossam@gmail.com"
+      }
+    })
+  }
   render(){
 
     return(
     <NavigationContainer>
-      { user !== null ? <Authorized /> : <Unauthorized /> }
+      { this.state.user !== null ? <Authorized /> : <Unauthorized changeUser={this.changeUser} /> }
     </NavigationContainer>
     )
 
   }
 } 
 
-const Unauthorized = ()=>(
+const Unauthorized = (props)=>(
   <Stack.Navigator>
-  <Stack.Screen name="Login" options={{headerShown: false}} component={Login} />
+  <Stack.Screen name="Login" options={{headerShown: false}} component={Login} initialParams={{changeUser: props.changeUser}} />
+
   <Stack.Screen name="Signup" options={{headerShown:false}} component={Signup} />
-     
  </Stack.Navigator>
 )
 
 const Authorized = ()=>(
-  <View style={{width:'100%',height:'110%',top:-3,borderWidth:1}}>
+  <View style={{width:'100%',height:'110%',top:-3,borderWidth:2}}>
   <Tab.Navigator 
       screenOptions={({ route }) => ({
         tabBarIcon: ({  color }) => {

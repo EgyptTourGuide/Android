@@ -16,6 +16,9 @@ export default class Login extends React.Component {
         password: '',
         google :'',
     }
+       componentDidMount(){
+       }
+
         handleEmail = (text) => { this.setState({ email: text })}
         handlePassword = (text) => {this.setState({ password: text })}
         login = (email, pass) => { alert('email: ' + email + ' password: ' + pass)}
@@ -50,7 +53,7 @@ export default class Login extends React.Component {
                     <Text style={{paddingRight:40,fontWeight:'bold',color:'white',margin:5}}> Remember Me</Text>
                     <Text style={{fontWeight:'bold',color:'white',margin:5}}>Forgot password?</Text>
                 </View>
-                <MyButton onPress={()=>this.props.navigation.navigate('City')} >Login</MyButton>
+                <MyButton onPress={()=>this.props.route.params.changeUser()} >Login</MyButton>
                 <MyButtonImage onPress={()=>alert('google')}>Google</MyButtonImage>
 
               

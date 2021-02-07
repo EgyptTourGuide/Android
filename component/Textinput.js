@@ -37,7 +37,6 @@ export const Search=(props)=>{
         </View>
 
     )
-    
 }
 
 const styles = StyleSheet.create({
@@ -66,6 +65,4 @@ const styles = StyleSheet.create({
         fontSize:12
         
      },
-
-
 })

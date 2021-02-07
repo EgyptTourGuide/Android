@@ -3,7 +3,8 @@ import { Text, View, Button, Image ,} from 'react-native';
 import  { Logo,Profimg } from '../component/Images'
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
-;
+
+import Star from '../component/StarRating';
 
 export default function App() {
   const renderContent = () => (
@@ -23,7 +24,7 @@ export default function App() {
             <Text style={{color:'#fff',fontSize:25,fontWeight:'bold'}}>Hossam@gmail.com </Text>
           </View>
       </View>
-     
+      <Star></Star>
     </View>
   );
 

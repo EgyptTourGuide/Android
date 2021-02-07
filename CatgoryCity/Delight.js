@@ -1,34 +1,35 @@
 
 import React from 'react';
-import { Text,Button,View ,StyleSheet,TouchableOpacity,Image} from 'react-native';
+import { Text,View ,StyleSheet,TouchableOpacity, Image} from 'react-native';
 
-  const Advanture = ({navigation})=>{
+const Delight =()=>{
+
     return (
+        
       <View style={styles.contain}>
-     
             <View style={styles.imgcontiner}> 
                 <TouchableOpacity style={styles.imgview}>
                     <Image style={styles.img}
-                     source={require('../pic/Diving.jpeg')}/>
-                     <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>Diving</Text>
+                     source={require('../pic/Del1.jpeg')}/>
+                     <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>coffee</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.imgview}>
                     <Image style={styles.img}
-                     source={require('../pic/Diving.jpeg')}/>
-                      <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>Diving</Text>
+                     source={require('../pic/Del2.jpeg')}/>
+                      <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>Mosque</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.imgcontiner}> 
                 <TouchableOpacity style={styles.imgview}>
                     <Image style={styles.img}
-                     source={require('../pic/ballon.jpeg')}/>
-                      <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>ballon</Text>
+                     source={require('../pic/Del3.jpeg')}/>
+                      <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>Alex</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.imgview} onPress={()=>navigation.navigate('Favplans')}>
+                <TouchableOpacity style={styles.imgview} onPress={()=>props.navigation.navigate('City')}>
                     <Image style={styles.img} 
-                    source={require('../pic/ballon2.jpeg')}/>
-                     <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>ballon</Text>
+                    source={require('../pic/Del1.jpeg')}/>
+                     <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>coffee</Text>
                 </TouchableOpacity>
          </View>
       </View>
@@ -61,6 +62,4 @@ import { Text,Button,View ,StyleSheet,TouchableOpacity,Image} from 'react-native
     }
   },
   )
-  
-  export default Advanture;
-  
+  export default Delight ;

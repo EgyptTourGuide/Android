@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Text,Button,View ,StyleSheet} from 'react-native';
-
+import Star from '../component/StarRating';
 
 
 
@@ -13,6 +13,7 @@ const Plan=()=> {
           title="Go to plan"
           onPress={() => {this.onPress}}
         />
+       <View style={{width:200,}}><Star></Star></View> 
       </View>
     );
   }

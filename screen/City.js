@@ -1,48 +1,64 @@
 import React from 'react'
-import { ImageBackground, View, Text, TouchableOpacity ,} from 'react-native' ;
+import { ImageBackground, View, Text, TouchableOpacity, SafeAreaView ,} from 'react-native' ;
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { AntDesign ,EvilIcons } from '@expo/vector-icons'; 
+import { AntDesign ,EvilIcons,FontAwesome5  } from '@expo/vector-icons'; 
 import { ImageCities } from '../component/Images'
 import { Search} from '../component/Textinput';
+import Places from '../CatgoryCity/Places'
+import Hotels from '../CatgoryCity/Hotels'
+import Delight from '../CatgoryCity/Delight'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Star from '../component/StarRating';
 
+
+const Tab = createMaterialTopTabNavigator();
 
 
 export default function City () {
     
-    
     return(
 
-        <View style={{flex:1,alignItems:'center',justifyContent:"center"}}> 
-          <ImageCities/>
-            <Search/>
+       <View>
+         <View style={{width:'100%',height:'28%',alignItems:'center'}}>
+           <ImageCities/>
+           <SafeAreaView style={{position:'absolute'}}>
+             <View style={{bottom:45}}><Search/></View>
+             
+               <View style={{left:190,bottom:40}}><Icon name="search" size={18} color="#393e46"/></View>
+                 <View style={{right:70,position:'absolute'}}> 
+                   <ImageBackground
+                    source={require('../pic/logo.png')}
+                    style={{width:45,height:45,right:180,top:15}}/>
+                 </View>
 
-              <View style={{left:90,top:4}}><Icon name="search" size={18} color="#393e46"/></View>
-               
-               <TouchableOpacity style={{flex:1,top:175,left:160}}>
-                   <AntDesign name="heart" size={24} color="red" onPress={this.onPress} />
-                </TouchableOpacity>
+                 <TouchableOpacity style={{width:30,alignItems:'center',alignSelf:'flex-end',top:-63,right:-58}}>
+                   <Icon  name="filter" size={27} color="white"/>
+                 </TouchableOpacity>
 
-                <TouchableOpacity style={{flex:1,top:175}}>
-                  <EvilIcons name="location" size={30} color="white" />
-                </TouchableOpacity>
+           </SafeAreaView>
+           <View style={{flexDirection:'row',bottom:10}}>
+            <View style={{left:180}}><AntDesign name="hearto" size={24} color="red" /></View> 
+            <View style={{left:7}}><FontAwesome5 name="map-marker-alt" size={24} color="#fff" /></View> 
+           <Star></Star>
 
-                <TouchableOpacity style={{top:178,left:-135 ,flexDirection:'row'}}>
-                  <AntDesign name="staro" size={22} color="yellow" />
-                  <AntDesign name="staro" size={22} color="yellow" />
-                  <AntDesign name="staro" size={22} color="yellow" />
-                  <AntDesign name="staro" size={22} color="yellow" />
-                </TouchableOpacity>
-           <View>
-              <TouchableOpacity style={{alignItems:'center',left:163,bottom:35,}}>
-                <Icon  name="filter" size={27} color="white"/>
-              </TouchableOpacity>
-          
-                 <ImageBackground 
-                   source={require('../pic/logo.png')}
-                   style={{width:40,height:40,flex:1,right:161,bottom:70}}/>
-            </View>
+           </View>
            
-        
+         </View>
+  
+         <View style={{width:'100%',height:'100%'}}>
+           <Tab.Navigator
+                swipeVelocityImpact={0.5}
+                swipeEnabled={false}
+                tabBarOptions={{
+                activeTintColor: "#fff",
+                inactiveTintColor: 'gray',
+                style:{backgroundColor:'#000'}}} 
+       >
+              <Tab.Screen name="Places" component={Places}/>
+              <Tab.Screen name="Hotels" component={Hotels}/>
+              <Tab.Screen name="Delight" component={Delight}/>
+            </Tab.Navigator>
+          </View>
         </View>
     )
     }

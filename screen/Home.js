@@ -125,7 +125,5 @@ const Homes=(props)=>{
 
       }
   },
- 
   )
- 
   export default Homes ;
