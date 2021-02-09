@@ -49,10 +49,12 @@ export default class Login extends React.Component {
                 <Mytxt placeholder = 'Email'></Mytxt>
 
                 <Mytxt placeholder = 'Password'   secureTextEntry={true} ></Mytxt>
+
                 <View  style={{flexDirection:'row',padding:5,top:190}}>
                     <Text style={{paddingRight:40,fontWeight:'bold',color:'white',margin:5}}> Remember Me</Text>
                     <Text style={{fontWeight:'bold',color:'white',margin:5}}>Forgot password?</Text>
                 </View>
+                
                 <MyButton onPress={()=>this.props.route.params.changeUser()} >Login</MyButton>
                 <MyButtonImage onPress={()=>alert('google')}>Google</MyButtonImage>
 

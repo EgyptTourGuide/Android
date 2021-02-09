@@ -1,30 +1,52 @@
 
 import React from 'react';
-import { Text,Button,View ,StyleSheet} from 'react-native';
-import Star from '../component/StarRating';
-
-
+import { View ,StyleSheet, Text} from 'react-native';
+import MapView, { Marker, } from 'react-native-maps'
 
 const Plan=()=> {
     return (
       <View style={styles.contain}>
-        <Text>Home!</Text>
-        <Button
-          title="Go to plan"
-          onPress={() => {this.onPress}}
-        />
-       <View style={{width:200,}}><Star></Star></View> 
+        <MapView
+          style={styles.map} 
+          region={{
+          latitude:31.23286772620776 ,
+          longitude:29.908670466914987 ,
+          latitudeDelta:0.0922,
+          longitudeDelta: 0.0421,
+       }}
+       moveOnMarkerPress={false}
+     > 
+     <Marker
+          coordinate={{ 
+          latitude:31.23286772620776 ,
+          longitude:29.908670466914987 ,}} 
+          title='Hi'
+          description='lets go to this place'
+          opacity={0.7}
+         />
+
+     </MapView>
+       
       </View>
     );
   }
   const styles=StyleSheet.create({
-
     contain:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-        backgroundColor:'black'
+         
+         backgroundColor: '#fff',
+         width:'100%',
+         height:'100%',
+         alignItems: 'center',
+         justifyContent: 'center', 
+      
+    },
+    map:{
     
+      alignItems:'center',
+      justifyContent:'flex-start',
+      width:"100%",
+      height:"100%",
+      
     }
   },
   )

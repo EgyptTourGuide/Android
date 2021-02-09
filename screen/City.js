@@ -1,7 +1,7 @@
 import React from 'react'
-import { ImageBackground, View, Text, TouchableOpacity, SafeAreaView ,} from 'react-native' ;
+import { ImageBackground, View,TouchableOpacity, SafeAreaView ,} from 'react-native' ;
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { AntDesign ,EvilIcons,FontAwesome5  } from '@expo/vector-icons'; 
+import { AntDesign ,FontAwesome5  } from '@expo/vector-icons'; 
 import { ImageCities } from '../component/Images'
 import { Search} from '../component/Textinput';
 import Places from '../CatgoryCity/Places'
@@ -9,6 +9,7 @@ import Hotels from '../CatgoryCity/Hotels'
 import Delight from '../CatgoryCity/Delight'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Star from '../component/StarRating';
+import MapView from 'react-native-maps';
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -37,8 +38,8 @@ export default function City () {
 
            </SafeAreaView>
            <View style={{flexDirection:'row',bottom:10}}>
-            <View style={{left:180}}><AntDesign name="hearto" size={24} color="red" /></View> 
-            <View style={{left:7}}><FontAwesome5 name="map-marker-alt" size={24} color="#fff" /></View> 
+            <TouchableOpacity style={{left:180}}><AntDesign name="hearto" size={24} color="red" /></TouchableOpacity> 
+            <TouchableOpacity style={{left:7}} ><FontAwesome5 name="map-marker-alt" size={24} color="#fff" /></TouchableOpacity> 
            <Star></Star>
 
            </View>
