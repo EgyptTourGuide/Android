@@ -1,6 +1,8 @@
 # Android
 #I finished (Login & Singnup , Home(Recommnden - Cities - Advanture))
-#im working on ( City Screen and some logic  )
-#working Anmited Profile 
-#I finished (City Screen and Category)
-#working on Maps google and customize 
+#done ( City Screen   )
+
+
+#1
+(#working Anmited Profile  finished (City Screen and Category
+#working on Maps google and customize )
