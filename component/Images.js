@@ -5,7 +5,7 @@ export const Logo=()=>{
     return(
         <Image 
             source={require('../pic/logo.png')}
-            style={{width:140,height:120,top:180}}>
+            style={{width:140,height:120}}>
        </Image>
     )
 }

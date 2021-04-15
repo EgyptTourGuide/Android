@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.mylogin",
+    package = "com.egytourguide",
 )
 
 android_resource(
     name = "res",
-    package = "com.mylogin",
+    package = "com.egytourguide",
     res = "src/main/res",
 )
 

@@ -1,45 +1,120 @@
 import React from 'react';
-import { View , ImageBackground, Text,TouchableOpacity,} from 'react-native';
+import { View , ImageBackground, Text,TouchableOpacity,StyleSheet} from 'react-native';
 import { MyButton,MyButtonImage } from '../component/Button'
-import { Mytxt } from '../component/Textinput';
-import{Logo} from '../component/Images'
+import { Input } from '../component/Textinput';
+import {Logo} from '../component/Images'
+import  { useState } from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
+import { URL } from '../API/API'
 
+        const Registerition=(props)=>{
+          const [username, setUsername] = useState('')
+          const [FullName,setFullName]=useState('');
+          const [Email,setEmail]=useState('');
+          const [Country,setCountry]=useState('');
+          const [PhoneNumber,setPhoneNumber]=useState('');
+          const [Password,setPassword]=useState('');
+          const [ isRegistraionSuccess,setIsRegistraionSuccess ] = useState(false);
 
-export default class Signup extends React.Component{
+          let options = {
+            method: 'POST', 
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
 
-    render(){
+  const handelSubmitRegister= async()=>{
+            if(!FullName){
+               alert(('Please Fill FullName'));
+               return;
+            }
+            if(!username){
+               alert(('Please Fill username'));
+               return;
+            }
+            if (!Email) {
+              alert('Please fill Email');
+              return;
+            }
+            if (!Country) {
+              alert('Please fill Country');
+              return;
+            }
+            if (!Password) {
+              alert('Please fill Password');
+              return;
+            }
+            if (!PhoneNumber) {
+              alert('Please fill PhoneNumber');
+              return;
+            }
+            try{
+            
+           const response = await fetch(`${URL}/signup`, {
+                 ...options,
+                body: JSON.stringify(dataRegisterSend),
+              })
 
-        return(
-        
-                <View style={{width:'100%',height:'100%',flex:1}}>
-                  <ImageBackground 
-                  source={require('../pic/sea.jpeg')} style={{flex:1,justifyContent:'center', resizeMode:'center',}}>
+          if(response.status === 201){ 
+             alert('Account Created')
+          }else{
+            let errors = await response.json()
+            alert(errors.errors[0])
+          }
+        }catch(e){
+          alert(e)
+        }
+  }
 
-                    <View style={{flex:1,justifyContent:'center',alignItems:'center',bottom:40}}>  
-                      <Logo></Logo>
-                    <Text style={{top:185,fontSize:22,fontWeight:'bold',alignSelf:'center'}}>Signup</Text>
-              
-                        <Mytxt placeholder = 'FullName'/>
-                        <Mytxt placeholder = 'Email'/>
-                        <Mytxt placeholder = 'Country'/>
-                        <Mytxt placeholder = 'PhoneNumber'/>
-                        <Mytxt placeholder = 'Password'   secureTextEntry={true} /> 
-                        <Mytxt placeholder = 'Confirm Password'  secureTextEntry={true}/>
+  const dataRegisterSend= {
+    fullname: FullName,
+    email: Email,
+    country: Country,
+    phone: PhoneNumber,
+    password: Password,
+    username
+  };
 
-                        <Text style={{margin:1}}></Text>
-                
-                        <MyButton onPress={()=>this.props.navigation.navigate('City')}>Register</MyButton>
-                        <MyButtonImage onPress={()=>alert('google')}>Google</MyButtonImage>
+  if(Registerition){
+    return(
+    
+        <ImageBackground 
+           source={require('../pic/sea.jpeg')} style={{flex:1, resizeMode:'cover',}}>
+         <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+              <ScrollView contentContainerStyle={styles.scrollviewstyle} 
+                showsVerticalScrollIndicator={false}> 
 
-                        <TouchableOpacity onPress={()=>this.props.navigation.navigate('Login')}
-                        style={{ margin:2, top:100}} >
-                            <Text style={{fontSize:15,fontWeight:'bold',color:'#000',padding:5}}>Don't have an account ?Sign up
-                            </Text>
-                        </TouchableOpacity> 
-               </View>
-              </ImageBackground>
-             </View>
-          
-        )
-    }
+                  <Logo></Logo>
+                  <Input placeholder = 'FullName' onChangeText={(FullName)=>setFullName(FullName)}/>
+                  <Input placeholder = 'Username' onChangeText={(username)=>setUsername(username)}/>
+                  <Input placeholder = 'Email'onChangeText={(Email)=>setEmail(Email)}  keyboardType='email-address'/>
+                  <Input placeholder = 'Country' onChangeText={(Country)=>setCountry(Country)}/>
+                  <Input placeholder = 'PhoneNumber'onChangeText={(PhoneNumber)=>setPhoneNumber(PhoneNumber)} keyboardType="numeric"/>
+                  <Input placeholder = 'Password' onChangeText={(Password)=>setPassword(Password)}  secureTextEntry={true} />
+                  <Input placeholder = 'Confirm Password'  onChangeText={(Password)=>setPassword(Password)} secureTextEntry={true}/>
+                  <MyButton onPress={()=>handelSubmitRegister()}>Register</MyButton>
+                  <MyButtonImage onPress={()=>alert('google')}>Google</MyButtonImage>
+                  <TouchableOpacity onPress={()=>props.navigation.navigate('Login')}
+                  style={{ margin:2,}} >
+                      <Text style={{fontSize:15,fontWeight:'bold',color:'#000',}}>Don't have an account ?Sign up
+                      </Text>
+                  </TouchableOpacity> 
+                </ScrollView>
+                </View>
+       </ImageBackground>
+    )
+  }
 }
+const styles = StyleSheet.create({
+scrollviewstyle:{
+  flex: 1,
+  justifyContent:'center',
+  alignItems:'center',
+}
+})
+
+export default Registerition;
+
+
+
+

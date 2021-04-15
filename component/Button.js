@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, StyleSheet, Text, Image } from 'react-native'
+import { TouchableOpacity, StyleSheet, Text, Image,View } from 'react-native'
 
 
 export const MyButton =  (props)=>{
@@ -23,22 +23,29 @@ export const MyButtonImage = (props)=>{
        </TouchableOpacity>
     )
 }
+ export const MainButton = (props) => {
+    return (
+      <TouchableOpacity activeOpacity={0.6} onPress={props.onPress}>
+        <View style={styles.button}>
+          <Text style={styles.buttonText}>{props.children}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
 const styles = StyleSheet.create({
     submitButton: {
         backgroundColor: '#16c79a',
-        width:'70%',
+        width:240,
         height: 40,
-        padding: 10,
-        margin: 10,
-        top:180,
+        marginVertical:5,
         borderRadius:15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        
       },
        submitButtonText:{
           color: 'white',
-          flex:1,
-          alignSelf:'center',
-          alignContent:'center',
           fontSize :18,
           fontWeight:'bold'
        },
@@ -52,12 +59,25 @@ const styles = StyleSheet.create({
        },
        GooglesubmitButton:{
         backgroundColor: '#fff',
-        width:'70%',
+        width:240,
         height: 40,
         padding: 10,
-        margin: 40,
+        marginVertical:5,
         borderRadius:15,
-        top:140,
       },
+      button: {
+        backgroundColor: "#16c79a",
+        borderRadius: 25,
+        width:100,
+        height:30, 
+      },
+      buttonText: {
+        color: 'white',
+        fontFamily: 'open-sans',
+        fontSize: 15,
+        textAlign:'center',
+       
+      }
+    
 })
 

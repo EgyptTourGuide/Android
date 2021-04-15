@@ -1,53 +1,51 @@
+import React from 'react'
+import { useState } from 'react';
+import {
+    StyleSheet,
+    KeyboardAvoidingView,
+    View,
+    Text,
+    TouchableOpacity
+} from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 
-import React from 'react';
-import { View ,StyleSheet, Text} from 'react-native';
-import MapView, { Marker, } from 'react-native-maps'
 
-const Plan=()=> {
-    return (
-      <View style={styles.contain}>
-        <MapView
-          style={styles.map} 
-          region={{
-          latitude:31.23286772620776 ,
-          longitude:29.908670466914987 ,
-          latitudeDelta:0.0922,
-          longitudeDelta: 0.0421,
-       }}
-       moveOnMarkerPress={false}
-     > 
-     <Marker
-          coordinate={{ 
-          latitude:31.23286772620776 ,
-          longitude:29.908670466914987 ,}} 
-          title='Hi'
-          description='lets go to this place'
-          opacity={0.7}
-         />
+const FormReview = (props) => {
+  const [name, setName] = useState('');
 
-     </MapView>
-       
+  return(
+      <View style={{backgroundColor:"red",height:150,}}>
+      <TextInput />
+      <Text>{name}</Text>
       </View>
-    );
+  );
+}
+const Place = (props) => {
+  const [visible, setVisible] = useState(false);
+
+  const getTitle = () => {
+    setVisible(true);
   }
-  const styles=StyleSheet.create({
-    contain:{
-         
-         backgroundColor: '#fff',
-         width:'100%',
-         height:'100%',
-         alignItems: 'center',
-         justifyContent: 'center', 
-      
-    },
-    map:{
-    
-      alignItems:'center',
-      justifyContent:'flex-start',
-      width:"100%",
-      height:"100%",
-      
-    }
-  },
-  )
-  export default Plan;
+
+  return (
+    <View>
+      <View style={styles.button}>
+        <TouchableOpacity style={styles.center} onPress={getTitle}>
+          <Text style={styles.plusSign}>Hossam</Text>
+        </TouchableOpacity>
+        {
+          visible && <FormReview />
+        }
+      </View>
+    </View>
+  );
+};
+
+
+const styles=StyleSheet.create({
+
+
+
+})
+export default Place;
+

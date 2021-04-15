@@ -1,66 +1,57 @@
 
-import React from 'react';
-import { Text,View ,StyleSheet,TouchableOpacity, Image} from 'react-native';
+import React,{useEffect} from 'react';
+import { Text,View ,TouchableOpacity, Dimensions,ScrollView,ImageBackground} from 'react-native';
 
-const Places =()=>{
+import { useState } from 'react';
+import { URL } from '../API/API'
 
+const Card = (props)=>{
+    const { width, height } = Dimensions.get('window')
+    return(
+        <TouchableOpacity style={{width: width / 2.2, height: height / 4, backgroundColor: 'gray', borderRadius: 15, margin: 5}}
+         onPress={props.onPress}
+         activeOpacity={0.8}>
+
+            <ImageBackground  source={props.image && {uri: props.image}} style={{ resizeMode: 'cover',  flex: 1, padding: 10, justifyContent: 'flex-end'}} imageStyle={{borderRadius: 15}}>
+             <Text style={{backgroundColor: 'rgba(0,0,0,0.5)', color: 'white', alignSelf: 'flex-start', fontSize: 22, width: '100%', padding: 2}}>{props.name}</Text>
+
+             </ImageBackground>
+        </TouchableOpacity>
+    )
+}
+
+
+
+
+const Places =(props)=>{
+  const [Places,setPlaces] =useState([])
+ 
+  useEffect(()=>{
+   async function getPlaces(){
+    const response=await fetch(`${URL}/Places?city=${props.route.params.id}`)
+    let result = await response.json()
+    setPlaces(result.places)
+    //console.warn(result)
+    console.warn(props.route.params.id)
+   }
+
+   getPlaces()
+
+  },[])
     return (
         
-      <View style={styles.contain}>
-     
-            <View style={styles.imgcontiner}> 
-                <TouchableOpacity style={styles.imgview}>
-                    <Image style={styles.img}
-                     source={require('../pic/imgcity.jpeg')}/>
-                     <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>AbuSimple</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.imgview}>
-                    <Image style={styles.img}
-                     source={require('../pic/sea.jpeg')}/>
-                      <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>Sewa</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.imgcontiner}> 
-                <TouchableOpacity style={styles.imgview}>
-                    <Image style={styles.img}
-                     source={require('../pic/places.jpeg')}/>
-                      <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>Temple</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.imgview} onPress={()=>props.navigation.navigate('City')}>
-                    <Image style={styles.img} 
-                    source={require('../pic/loxr.jpg')}/>
-                     <Text style={{color:"#fff",bottom:30,left:10,fontSize:20,fontWeight:'bold'}}>Luxor</Text>
-                </TouchableOpacity>
+      <View style={{flex:1, backgroundColor: '#000'}}>
+           <ScrollView contentContainerStyle={{flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center'}}>
+            {Places.length  > 0 && Places.map(Place=> 
+            <Card 
+                name={Place.name}
+                image={Place.media[0]}
+                onPress={()=>props.navigation.navigate('Place', { Place: { name: Place.name, id: Place.id, media: Place.media, description: Place.description } })}
+            />)}
+          </ScrollView>
          </View>
-      </View>
+    
       );
 }
-  const styles=StyleSheet.create({
-
-    contain:{
-        width:"100%",
-        height:'90%',
-        backgroundColor:'#000',
-    },
-    imgcontiner:{
-        flexDirection:'row',
-        marginTop:10
-    },
-    imgview:{
-        borderWidth:1,
-        borderColor:'#000',
-        width: 180,
-        height:200,
-        borderRadius:15,
-        marginHorizontal:8,
-        
-    },
-    img:{
-        width:'100%',
-        height:'100%',
-        borderRadius:15,
-    }
-  },
-  )
+ 
   export default Places ;

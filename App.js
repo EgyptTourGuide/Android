@@ -11,47 +11,75 @@ import  {createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import  Icon from 'react-native-vector-icons/FontAwesome'
 import  { View } from 'react-native';
 import  Favplans from './screen/Favplans';
+import { AuthProvider, AuthContext } from './Auth/AuthProvider'
+import  AsyncStorage from '@react-native-async-storage/async-storage'
+import { useContext, useEffect, useState } from 'react/cjs/react.development';
+import { ActivityIndicator } from 'react-native-paper';
 
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
 
-let user = {
-  username: "hossam",
-  fullname: "Hossam",
-  email: "hossam@gmail.com"
-}
 
 export default class App extends React.Component {
 
-  state = {
-    user: null
-  }
-   
-  changeUser = ()=>{
-    console.log("inside change user")
-    this.setState({
-      user: {
-        username: "hossam",
-        fullname: "Hossam",
-        email: "hossam@gmail.com"
-      }
-    })
-  }
+  
   render(){
-
     return(
-    <NavigationContainer>
-      { this.state.user !== null ? <Authorized /> : <Unauthorized changeUser={this.changeUser} /> }
-    </NavigationContainer>
+    <AuthProvider>
+      <Router />
+    </AuthProvider>
     )
 
   }
 } 
 
+const Router = (props)=>{
+
+  const { user, login } = useContext(AuthContext)
+  const [ loading, setLoading ] = useState(true)
+
+
+  useEffect(()=>{
+
+
+    async function checkUser(){
+      try{
+        const stored = await AsyncStorage.getItem('user')
+        if(stored !== null){
+          const newUser = await JSON.parse(stored)
+          login(newUser)
+        }
+         }catch(e){
+           console.warn(e)
+         }
+         setLoading(false)
+        }
+
+        checkUser()
+
+    }, [])
+
+  
+    return(
+      <React.Fragment>
+      { loading ? (
+      <View style={{flex: 1, backgroundColor: 'black', justifyContent: 'center', alignItems: 'center'}}>
+      <ActivityIndicator size={40} color='white'/>
+      </View>) : (
+      <NavigationContainer>
+      { user !== null ? <Authorized /> : <Unauthorized/> }
+      </NavigationContainer>)}
+      </React.Fragment>
+    )
+  }
+
+
+
+
 const Unauthorized = (props)=>(
   <Stack.Navigator>
-  <Stack.Screen name="Login" options={{headerShown: false}} component={Login} initialParams={{changeUser: props.changeUser}} />
+  <Stack.Screen name="Login" options={{headerShown: false}} component={Login} />
 
   <Stack.Screen name="Signup" options={{headerShown:false}} component={Signup} />
  </Stack.Navigator>
@@ -86,7 +114,6 @@ const Authorized = ()=>(
   
   </Tab.Navigator>
 </View>
-
 )
 
 

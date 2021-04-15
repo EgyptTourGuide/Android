@@ -1,12 +1,17 @@
-import * as React from 'react';
-import { Text, View, Button, Image ,} from 'react-native';
-import  { Logo,Profimg } from '../component/Images'
-import Animated from 'react-native-reanimated';
+import React, { useState } from 'react';
+import { Text, View, Button, StyleSheet ,TextInput} from 'react-native';
+import  {Profimg } from '../component/Images'
 import BottomSheet from 'reanimated-bottom-sheet';
-
-import Star from '../component/StarRating';
+import HookTest from '../component/Hook'
 
 export default function App() {
+  const [ name, setName ] = useState({first: '', phone: '',Email:''})
+
+  const changeFirst = (firstname)=>setName(preState=>({...preState, first: firstname}))
+  const changePhone = (phone)=>setName(preState=>({...preState, phone}))
+  const changeEmail = (Email)=>setName(preState=>({...preState, Email}))
+
+
   const renderContent = () => (
     <View
       style={{
@@ -15,36 +20,45 @@ export default function App() {
         height: 450,
       }}
     >
-      <Text style={{color:'#fff',fontSize:20 }}>Change Your Information</Text>
-      <View style={{alignSelf:'center',alignItems:'center',top:25,width:150,height:150}}>
+      
+      <View style={{alignSelf:'center',alignItems:'center',width:"100%",height:150}}>
+        <View style={{alignItems:'center'}}><Text style={{color:'#fff',fontSize:20,width:'100%' }}>Change Your Information</Text></View>
+     
         <Profimg></Profimg>
-          <View style={{width:250,height:100,alignItems:'center'}}>
-            <Text  style={{color:'#fff',fontSize:25,fontWeight:"bold"}}>Hossam Hassan hassan </Text>
-            <Text style={{color:'#fff',fontSize:25,fontWeight:'bold'}}>01225153968 </Text>
-            <Text style={{color:'#fff',fontSize:25,fontWeight:'bold'}}>Hossam@gmail.com </Text>
-          </View>
+        <View style={{width:'200%',height:'80%',alignItems:'center',justifyContent:'center'}} >
+        <Text style={styles.txt}>{name.first}</Text>
+        <Text style={styles.txt}>{name.phone}</Text>
+        <Text style={styles.txt}>{name.Email}</Text>
+        </View>
+       
       </View>
-      <Star></Star>
     </View>
   );
 
   const sheetRef = React.useRef(null);
 
   return (
+  
     <>
       <View
         style={{
           flex: 1,
           borderColor:"red",
-          backgroundColor: '#fff',
+          backgroundColor: '#000',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
+        <View style={{bottom:"10%"}}>
+          <HookTest
+          changeFirst={changeFirst}
+          changePhone={changePhone}
+          changeEmail={changeEmail} />
+
+       </View>        
         <Button
           title="Edit Peofile"
-          onPress={() => sheetRef.current.snapTo(0)}
-        />
+          onPress={() => sheetRef.current.snapTo(0)} />
       </View>
       <BottomSheet
         ref={sheetRef}
@@ -55,3 +69,11 @@ export default function App() {
     </>
   );
 }
+const styles = StyleSheet.create({
+
+  txt: {
+    color:'#fff',
+    fontSize:23
+   },
+})
+
