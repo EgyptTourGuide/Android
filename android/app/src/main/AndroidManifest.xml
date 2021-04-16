@@ -2,7 +2,6 @@
   package="com.egytourguide">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
@@ -10,6 +9,8 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+      <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyC1w6P8qIyAynugJeY6hkqW6fweqh_Lpnk"/>
+
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

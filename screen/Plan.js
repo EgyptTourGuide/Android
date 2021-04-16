@@ -32,6 +32,8 @@ const Place = (props) => {
       <View style={styles.button}>
         <TouchableOpacity style={styles.center} onPress={getTitle}>
           <Text style={styles.plusSign}>Hossam</Text>
+
+         
         </TouchableOpacity>
         {
           visible && <FormReview />

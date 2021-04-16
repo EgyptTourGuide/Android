@@ -6,6 +6,7 @@ import MapView, { Marker } from 'react-native-maps'
 import { Search} from '../component/Textinput';
 import Star from '../component/StarRating';
 import { URL } from '../API/API'
+import StarRating from 'react-native-star-rating';
 
 
 
@@ -14,20 +15,47 @@ const{height,width}=Dimensions.get("window")
 const Header = (props)=>{
 
   return(
-    <View style={{width: '100%',alignItems: 'center', flexDirection: 'row', padding: 12, justifyContent: 'space-between'}}>
+    <View style={{alignSelf:'flex-start'}}>
+          <View style={{width: '100%',alignItems: 'center', flexDirection: 'row', padding: 12, justifyContent: 'space-between',backgroundColor:'blue'}}>
                <ImageBackground
                 source={require('../pic/logo.png')}
                 style={{width:45,height:45,backgroudColor:'blue'}}/>
               <Search/>
               <Icon  name="filter" size={30} color="white"/>
+          </View>
+         
     </View>
+
   )}
 const Discrption=(props)=>{
   return(
-    <ScrollView style={{backgroundColor: 'white', width:"100%",}} contentContainerStyle={{alignItems:'center',}}>
-      <Text style={{ width: '100%', backgroundColor: '#000',color:'#fff',padding:10,textTransform:"lowercase",fontStyle:'italic',fontSize:17}}>
-        {props.dis}
-      </Text>
+    
+    <ScrollView style={{backgroundColor:"#000", width:"100%",}} contentContainerStyle={{alignItems:'center',}}>
+       <View style={{backgroundColor:'red',width:width/1,flexDirection:'row',}}>
+      <View>
+        <StarRating
+            disabled={false}
+            activeOpacity={0.5}
+            emptyStar={'ios-star-outline'}
+            fullStar={'ios-star'}
+            halfStar={'ios-star-half'}
+            iconSet={'Ionicons'}
+            maxStars={5}
+            starSize={18}
+            rating={props.reviews.length > 0 && props.reviews[0].rate}
+            fullStarColor={'#fdb827'}
+          />
+       
+      </View>
+      
+            <View style={{backgroundColor:'blue',}}><Text style={{color:"#fff",fontSize:25,textAlign:'center',}}>{props.title}</Text></View>
+         
+           
+             <View style={{}}><Icon name='heart' size={20} style={{marginRight:15}}></Icon></View> 
+            
+          </View>
+     
+      <Text style={styles.Discrptions}>{props.dis}</Text>
     </ScrollView>
   )}
 
@@ -40,24 +68,34 @@ const Detelis =(props)=>{
   }, [])
 
   return(
-  <View style={{backgroundColor:'blue',height:height/4,}}>
-   <View>
-   if ({props.ticket.lenght > 0}) {
-     <Text style={{color: 'white',backgroundColor:'red'}}>{props.ticket.egyptioan}</Text>
-   }
+  <ScrollView style={{height:height/3.8,}}>
+
+   
+
+   <View style={{flexDirection:'row',justifyContent:'space-around',borderWidth:1,borderColor:"#fff",width:"100%",alignSelf:'center'}}>
+   <Text style={{color:'#fff',fontSize:25,}}>Tickets</Text>
+   
+     <Text style={{color: 'white',backgroundColor:'red',fontSize:20,}}> Egp : {props.ticket.egyptian.price}</Text>
+     
+     <Text style={{color: 'white',backgroundColor:'green',fontSize:20}}> Usd : {props.ticket.foreign.price}</Text>
+     
    
    </View>
 
-   <Text style={{color:'#fff'}}>TimeTable</Text>
+   <Text style={{color:'#fff',fontSize:25,marginLeft:10}}>TimeTable</Text>
    <View>
-     {props.hours && props.hours.map(h=><Text style={{color: 'white'}}>{h.day} from {h.from}, to {h.to}</Text>) }
+     {props.hours && props.hours.map(h=>
+     <Text style={styles.timetable}> {h.day} from <Text style={{color:"#fdb827"}}>{h.from}</Text> to <Text style={{color:'#fdb827'}}>{h.to}</Text></Text>)}
    </View>
-  </View>
+  
+  
+  </ScrollView>
   )}
    
 const Location=(props)=>{
   if(props.lat)
   return(
+    
     <View style={styles.MapView}>
     <MapView
       style={styles.map} 
@@ -81,7 +119,8 @@ const Location=(props)=>{
 
      />
  </MapView>
-  </View>)
+ </View>
+  )
   else return <View />
   
 }  
@@ -97,7 +136,18 @@ const Location=(props)=>{
              <Text style={{color:'#fff', marginLeft: 5}}>{props.reviews.length > 0 && props.reviews[0].user.name}</Text>
           </View>
           <View style={{alignSelf:'center',}}>
-             <Star rate={props.reviews.length > 0 && props.reviews[0].rate}></Star>
+          <StarRating
+            disabled={false}
+            activeOpacity={0.5}
+            emptyStar={'ios-star-outline'}
+            fullStar={'ios-star'}
+            halfStar={'ios-star-half'}
+            iconSet={'Ionicons'}
+            maxStars={5}
+            starSize={18}
+            rating={props.reviews.length > 0 && props.reviews[0].rate}
+            fullStarColor={'#fdb827'}
+          />
            </View>
       </View>
       <View>
@@ -144,12 +194,14 @@ export default function Place (props){
             <ImageBackground style={styles.imgbackground} source={{uri: place && place.media[0] }}>
              <Header />
             </ImageBackground>
-            <Discrption dis={place && place.description} />
+            <Discrption title={ place && place.name} dis={place && place.description}   rate={place && place.rate} reviews={place && place.reviews} />
             <Detelis hours={place && place.hours} ticket={place && place.ticket} />
             <Location long={place && place.location.coordinates[0]} lat={place && place.location.coordinates[1]} />
 
              <View style={{height:50,flexDirection:'row',justifyContent:'space-between',padding:12}}>
-               <View style={{width:60,}}><Text style={{color:'#fdb827',fontSize:25,fontWeight:"bold"}}>Rate</Text></View> 
+               <View style={{width:60,}}>
+                 <Text style={{color:'#fdb827',fontSize:25,fontWeight:"bold"}}>Rate</Text>
+               </View> 
               <View>
                 <TouchableOpacity
                     style={styles.button}
@@ -181,11 +233,8 @@ export default function Place (props){
          resizeMode: 'cover'
       },
       MapView:{
-         
-        backgroundColor: '#fff',
+
         width:'90%',
-        alignItems: 'center',
-        justifyContent: 'center', 
         alignSelf:'center',
         height:height/4
    },
@@ -217,5 +266,20 @@ export default function Place (props){
         fontWeight:'bold',
         fontSize:18,
         color:'#fff',
+   },
+      timetable:{
+        color: 'white',
+        textTransform:'capitalize',
+        textDecorationLine:'underline',
+        paddingLeft:10,
+      },
+      Discrptions:{
+        width: '100%',
+        backgroundColor: '#000',
+        color:'#fff',
+        padding:5,
+        textTransform:"lowercase",
+        fontStyle:'italic',
+        fontSize:17
    }
     })
