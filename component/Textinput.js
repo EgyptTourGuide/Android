@@ -1,7 +1,6 @@
 import React from 'react'
-import {  StyleSheet,TextInput, View  } from 'react-native'
- 
-
+import {  Dimensions, StyleSheet,TextInput, View  } from 'react-native'
+  
 export const Input=(props)=>{
 
   
@@ -23,7 +22,6 @@ export const Input=(props)=>{
 
 
 export const Search=(props)=>{
-
   
     return(
         

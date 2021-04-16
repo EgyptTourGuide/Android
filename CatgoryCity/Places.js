@@ -32,7 +32,6 @@ const Places =(props)=>{
     let result = await response.json()
     setPlaces(result.places)
     //console.warn(result)
-    console.warn(props.route.params.id)
    }
 
    getPlaces()

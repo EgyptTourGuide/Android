@@ -16,7 +16,7 @@ const Header = (props)=>{
 
   return(
     <View style={{alignSelf:'flex-start'}}>
-          <View style={{width: '100%',alignItems: 'center', flexDirection: 'row', padding: 12, justifyContent: 'space-between',backgroundColor:'blue'}}>
+          <View style={{width: '100%',alignItems: 'center', flexDirection: 'row', padding: 12, justifyContent: 'space-between'}}>
                <ImageBackground
                 source={require('../pic/logo.png')}
                 style={{width:45,height:45,backgroudColor:'blue'}}/>
@@ -31,15 +31,15 @@ const Discrption=(props)=>{
   return(
     
     <ScrollView style={{backgroundColor:"#000", width:"100%",}} contentContainerStyle={{alignItems:'center',}}>
-       <View style={{backgroundColor:'red',width:width/1,flexDirection:'row',}}>
-      <View>
+       <View style={{width:width/1,flexDirection:'row',justifyContent:'space-between'}}>
+      <View style={{marginLeft:5,justifyContent:'center'}}>
         <StarRating
-            disabled={false}
+            disabled={true}
             activeOpacity={0.5}
-            emptyStar={'ios-star-outline'}
-            fullStar={'ios-star'}
-            halfStar={'ios-star-half'}
-            iconSet={'Ionicons'}
+            emptyStar={'star-o'}
+            fullStar={'star'}
+            halfStar={'star-half-full'}
+            iconSet={'FontAwesome'}
             maxStars={5}
             starSize={18}
             rating={props.reviews.length > 0 && props.reviews[0].rate}
@@ -48,10 +48,10 @@ const Discrption=(props)=>{
        
       </View>
       
-            <View style={{backgroundColor:'blue',}}><Text style={{color:"#fff",fontSize:25,textAlign:'center',}}>{props.title}</Text></View>
+            <View style={{}}><Text style={{color:"#fff",fontSize:25,textAlign:'center',fontWeight:'bold',marginRight:12}}>{props.title}</Text></View>
          
            
-             <View style={{}}><Icon name='heart' size={20} style={{marginRight:15}}></Icon></View> 
+             <View style={{justifyContent:'center'}}><Icon name='heart' size={20} color='red' style={{marginRight:15,}}></Icon></View> 
             
           </View>
      
@@ -63,8 +63,6 @@ const Detelis =(props)=>{
 
   useEffect(()=>{
 
-    console.warn(props.hours[0].day)
-    console.warn(props.ticket)
   }, [])
 
   return(
@@ -139,12 +137,12 @@ const Location=(props)=>{
           <StarRating
             disabled={false}
             activeOpacity={0.5}
-            emptyStar={'ios-star-outline'}
-            fullStar={'ios-star'}
-            halfStar={'ios-star-half'}
-            iconSet={'Ionicons'}
+            emptyStar={'star-o'}
+            fullStar={'star'}
+            halfStar={'star-half-full'}
+            iconSet={'FontAwesome'}
             maxStars={5}
-            starSize={18}
+            starSize={20}
             rating={props.reviews.length > 0 && props.reviews[0].rate}
             fullStarColor={'#fdb827'}
           />
@@ -173,9 +171,9 @@ export default function Place (props){
         if(result.status === 200){
         const jsonData = await result.json()
         setPlace(jsonData.place)
-        }else console.warn(result)
+        }else return
         }catch(e){
-          console.warn(e)
+         return
         }
         setLoading(false)
       }
@@ -196,7 +194,7 @@ export default function Place (props){
             </ImageBackground>
             <Discrption title={ place && place.name} dis={place && place.description}   rate={place && place.rate} reviews={place && place.reviews} />
             <Detelis hours={place && place.hours} ticket={place && place.ticket} />
-            <Location long={place && place.location.coordinates[0]} lat={place && place.location.coordinates[1]} />
+            <Location  lat={place && place.location.coordinates[0]}long={place && place.location.coordinates[1]} />
 
              <View style={{height:50,flexDirection:'row',justifyContent:'space-between',padding:12}}>
                <View style={{width:60,}}>
@@ -205,7 +203,7 @@ export default function Place (props){
               <View>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={()=>props.navigation.navigate('Review')}
+                    onPress={()=>props.navigation.navigate('Review',{ questions: place && place.questions})}
                     >
                     <Text style={styles.txt}>Add Review</Text>
                 </TouchableOpacity>
@@ -233,7 +231,7 @@ export default function Place (props){
          resizeMode: 'cover'
       },
       MapView:{
-
+      
         width:'90%',
         alignSelf:'center',
         height:height/4

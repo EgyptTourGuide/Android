@@ -19,12 +19,12 @@ export default class Star extends React.Component{
     return (
         <View>
       <StarRating
-        disabled={true}
+        disabled={false}
         activeOpacity={0.5}
-        emptyStar={'ios-star-outline'}
-        fullStar={'ios-star'}
+        emptyStar={'star-o'}
+        fullStar={'star'}
         halfStar={'ios-star-half'}
-        iconSet={'Ionicons'}
+        iconSet={'FontAwesome'}
         maxStars={5}
         starSize={18}
         rating={this.props.rate}

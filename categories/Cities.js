@@ -17,7 +17,7 @@ const Card = (props)=>{
            <Text style={{backgroundColor: 'rgba(0,0,0,0.5)', color: 'white', alignSelf: 'flex-start', fontSize: 22, width: '100%', padding: 2}}>{props.name}</Text>
 
              </ImageBackground>
-        
+      
         </TouchableOpacity>
     )
 }
@@ -34,7 +34,7 @@ const Cities =(props)=>{
           const response = await fetch(`${URL}/cities`)
           let result = await response.json()
           setCities(result.cities)
-          console.warn(result)
+        
         }
 
         getCities()

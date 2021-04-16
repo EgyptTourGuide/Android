@@ -47,7 +47,6 @@ export default function City (props) {
     const { height, width } = Dimensions.get('window')
 
     useEffect(()=>{
-      console.warn(props.route.params.city.name)
     }, [])
     
     return(

@@ -1,53 +1,53 @@
-import React from 'react'
-import { useState } from 'react';
-import {
-    StyleSheet,
-    KeyboardAvoidingView,
-    View,
-    Text,
-    TouchableOpacity
-} from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
 
+import React from 'react';
+import { View ,StyleSheet, Text} from 'react-native';
+import MapView, { Marker, } from 'react-native-maps'
 
-const FormReview = (props) => {
-  const [name, setName] = useState('');
+const Plan=()=> {
+    return (
+      <View style={styles.contain}>
+        <MapView
+          style={styles.map} 
+          region={{
+          latitude:30.045833 ,
+          longitude:31.224444 ,
+          latitudeDelta:0.0922,
+          longitudeDelta: 0.0421,
+       }}
+       moveOnMarkerPress={false}
+     > 
+     <Marker
+          coordinate={{ 
+            latitude:30.045833 ,
+            longitude:31.224444 ,}} 
+          title='Hi'
+          description='lets go to this place'
+          opacity={0.7}
+         />
 
-  return(
-      <View style={{backgroundColor:"red",height:150,}}>
-      <TextInput />
-      <Text>{name}</Text>
+     </MapView>
+       
       </View>
-  );
-}
-const Place = (props) => {
-  const [visible, setVisible] = useState(false);
-
-  const getTitle = () => {
-    setVisible(true);
+    );
   }
-
-  return (
-    <View>
-      <View style={styles.button}>
-        <TouchableOpacity style={styles.center} onPress={getTitle}>
-          <Text style={styles.plusSign}>Hossam</Text>
-
+  const styles=StyleSheet.create({
+    contain:{
          
-        </TouchableOpacity>
-        {
-          visible && <FormReview />
-        }
-      </View>
-    </View>
-  );
-};
-
-
-const styles=StyleSheet.create({
-
-
-
-})
-export default Place;
-
+         backgroundColor: '#fff',
+         width:'100%',
+         height:'100%',
+         alignItems: 'center',
+         justifyContent: 'center', 
+      
+    },
+    map:{
+    
+      alignItems:'center',
+      justifyContent:'flex-start',
+      width:"100%",
+      height:"100%",
+      
+    }
+  },
+  )
+  export default Plan;
