@@ -103,7 +103,7 @@ const Authorized = ()=>(
       tabBarOptions={{
         activeTintColor: "#fff",
         inactiveTintColor: '#777',
-        style:{backgroundColor:"#000"}}} 
+        style:{backgroundColor:"#000",borderTopWidth:0}}} 
    >
       
       <Tab.Screen name='Home' component={Home} />

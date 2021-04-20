@@ -39,8 +39,8 @@ export class AuthProvider extends React.Component{
                 try{
                     await AsyncStorage.removeItem('user')
                     this.setState({user: null})
-
                 }catch(e){
+                    this.setState({user: null})
                     console.log(e)
                 }
             }

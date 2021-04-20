@@ -42,7 +42,7 @@ const Discrption=(props)=>{
             iconSet={'FontAwesome'}
             maxStars={5}
             starSize={18}
-            rating={props.reviews.length > 0 && props.reviews[0].rate}
+            rating={props.rate}
             fullStarColor={'#fdb827'}
           />
        
@@ -70,14 +70,30 @@ const Detelis =(props)=>{
 
    
 
-   <View style={{flexDirection:'row',justifyContent:'space-around',borderWidth:1,borderColor:"#fff",width:"100%",alignSelf:'center'}}>
-   <Text style={{color:'#fff',fontSize:25,}}>Tickets</Text>
+   <View style={{flexDirection:'row',justifyContent:'space-evenly',borderWidth:0,borderColor:"#fff",width:"100%",alignSelf:'center',padding:2}}>
+   <Text style={{color:'#fff',fontSize:25,right:35}}>Tickets</Text>
    
-     <Text style={{color: 'white',backgroundColor:'red',fontSize:20,}}> Egp : {props.ticket.egyptian.price}</Text>
-     
-     <Text style={{color: 'white',backgroundColor:'green',fontSize:20}}> Usd : {props.ticket.foreign.price}</Text>
-     
-   
+    
+      <View style={{width:70,flexDirection:'row',alignItems:'center'}}>
+      <ImageBackground
+        resizeMode='cover'
+        source={require('../pic/egypt.png')}
+        style={{width:30,height:30,marginRight:6}}>
+
+        </ImageBackground>
+     <Text style={{color: 'white',fontSize:18,}}>: {props.ticket.egyptian.price} EGP</Text>
+      </View>
+    
+     <View style={{width:70,flexDirection:'row',alignItems:'center'}}>
+     <ImageBackground
+        resizeMode='cover'
+        source={require('../pic/globe.png')}
+        style={{width:30,height:30,marginRight:6}}>
+
+        </ImageBackground>
+     <Text style={{color: 'white',fontSize:18}}>: {props.ticket.foreign.price} USD</Text>
+     </View>
+  
    </View>
 
    <Text style={{color:'#fff',fontSize:25,marginLeft:10}}>TimeTable</Text>
@@ -97,6 +113,9 @@ const Location=(props)=>{
     <View style={styles.MapView}>
     <MapView
       style={styles.map} 
+      showsCompass={true}
+      toolbarEnabled={false}
+      scrollEnabled={false}
       region={{
       latitude: props.lat ,
       longitude: props.long ,
@@ -192,7 +211,7 @@ export default function Place (props){
             <ImageBackground style={styles.imgbackground} source={{uri: place && place.media[0] }}>
              <Header />
             </ImageBackground>
-            <Discrption title={ place && place.name} dis={place && place.description}   rate={place && place.rate} reviews={place && place.reviews} />
+            <Discrption title={ place && place.name} dis={place && place.description}   rate={place && place.rate}/>
             <Detelis hours={place && place.hours} ticket={place && place.ticket} />
             <Location  lat={place && place.location.coordinates[0]}long={place && place.location.coordinates[1]} />
 
@@ -203,7 +222,7 @@ export default function Place (props){
               <View>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={()=>props.navigation.navigate('Review',{ questions: place && place.questions})}
+                    onPress={()=> place && props.navigation.navigate('Review',{ questions: place.questions, id: place.id})}
                     >
                     <Text style={styles.txt}>Add Review</Text>
                 </TouchableOpacity>

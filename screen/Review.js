@@ -1,8 +1,10 @@
 import React ,{ useState,useEffect }from 'react';
+import { useContext } from 'react';
 import { Text,View ,StyleSheet, Dimensions,ImageBackground,TouchableOpacity,TextInput, ScrollView} from 'react-native';
 import { RadioButton } from 'react-native-paper';
-import Star from '../component/StarRating';
 import StarRating from 'react-native-star-rating';
+import { Authaxios, URL } from '../API/API'
+import { AuthContext } from '../Auth/AuthProvider';
 
 
 
@@ -13,7 +15,15 @@ const { width, height } = Dimensions.get('window')
      const [Add , setAdd] = useState(false)   
      const [checked, setChecked] = useState(null);
 
+     const onChangeRadio = (value)=>{
+       if(true){
+         let ans = props.Answars
+         ans[props.index] = value
+         props.setAnsw(ans)
+       }
+     }
 
+     
  return(
    
    <View style={{width:width,justifyContent:'center',alignItems:'center',paddingTop:20,}}>
@@ -27,14 +37,14 @@ const { width, height } = Dimensions.get('window')
               <RadioButton
                 value={checked}                
                 status={ checked && checked === true ? 'checked' : 'unchecked' }
-                onPress={() => setChecked(true)}
+                onPress={() =>{ setChecked(true); onChangeRadio(true)}}
               />
                 <Text style={{textAlign:'left',right:20,fontWeight:'bold'}}>Yes</Text>
 
               <RadioButton
                 value={checked}
-                status={ checked && checked === false ? 'checked' : 'unchecked' }
-                onPress={() => setChecked(false)}
+                status={ checked !== null && checked === false ? 'checked' : 'unchecked' }
+                onPress={() =>{ setChecked(false); onChangeRadio(false)}}
               />
                  <Text style={{textAlign:'right',right:20,fontWeight:'bold'}}>No</Text>
           </View>
@@ -46,8 +56,13 @@ const { width, height } = Dimensions.get('window')
 
  const CardComment=(props)=>{
 
-   const [ rate, setRate ] = useState(0)
-         
+    
+
+    const _onChangeText = (text)=>{
+
+        props.setcomment(text)
+
+    }
 
        
       
@@ -64,13 +79,19 @@ const { width, height } = Dimensions.get('window')
             iconSet={'FontAwesome'}
             maxStars={5}
             starSize={18}
-            rating={rate}
-            selectedStar={(rating) => setRate(rating)}
+            rating={props.Rate}
+            selectedStar={(rating) => props.setRate(rating)}
             fullStarColor={'#fdb827'}
           />
             </View>
-           <TextInput style = {styles.input} placeholder="Comment ..."
-            maxLength = {60}></TextInput>
+           <TextInput 
+           style = {styles.input} 
+            placeholder="Comment ..."
+            value={props.comment}
+            onChangeText={_onChangeText}
+            >
+
+            </TextInput>
           </View>
          
         </View>
@@ -83,11 +104,42 @@ const { width, height } = Dimensions.get('window')
 function Review(props) {
   
       const [ questions, setQ ] = useState([])
+      const [ Answars, setAnsw ] = useState([null,null,null,null])
+      const [comment ,setcomment] =useState('')
+      const [Rate ,setRate]=useState(0)
 
+      const context = useContext(AuthContext)
       useEffect(()=>{
         console.log(props.route.params)
         setQ(props.route.params.questions)
       }, [])
+
+     const _onPress = async()=>{
+       if(Answars.every(value => value !== null)){
+        if (Rate !== 0 && comment.trim()!== ''){
+          console.warn(`Answers: ${Answars}\nRate; ${Rate}\ncomment: ${comment}`)
+          try{
+          const response = await Authaxios.post(`${URL}/places/${props.route.params.id}/review`, {answers: Answars, rate: Rate, comment: comment})
+          if(response.status === 201){
+            alert('Comment Created!')
+            props.navigation.goBack()
+          }
+        }catch(err){
+          context.logout()
+          console.warn(err)
+          console.log(err)
+        }
+           
+        }
+        else{
+          alert ('Massing Comment Or Rate ')
+        }
+
+       }else{
+         alert('Missing Answers!')
+       }
+      
+      }
  
   return (
  
@@ -95,23 +147,19 @@ function Review(props) {
            <ScrollView
                 contentContainerStyle={styles.scrollviewstyle} 
                 showsVerticalScrollIndicator={true} > 
-            {questions.length > 0 && questions.map(q=><Card ques={q} key={q}/>) }
-            <CardComment />
-            <MainButton children='Submit' />
+            {questions.length > 0 && questions.map((q, index)=><Card Answars={Answars} setAnsw={setAnsw} index={index} ques={q} key={q}/>) }
+            <CardComment comment={comment} setcomment={setcomment} Rate={Rate} setRate={setRate} />
+            <TouchableOpacity activeOpacity={0.6} onPress={_onPress}>
+              <View style={styles.button}>
+               <Text style={styles.buttonText}>Submit</Text>
+              </View>
+            </TouchableOpacity>
             
             </ScrollView>
          </View>
  )
 }
-const MainButton = (props) => {
-  return (
-    <TouchableOpacity activeOpacity={0.6} onPress={props.onPress}>
-      <View style={styles.button}>
-        <Text style={styles.buttonText}>{props.children}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
+
 const styles = StyleSheet.create({
   ques:{
      fontSize:18,
