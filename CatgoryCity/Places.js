@@ -31,7 +31,7 @@ const Places =(props)=>{
     const response=await fetch(`${URL}/Places?city=${props.route.params.id}`)
     let result = await response.json()
     setPlaces(result.places)
-    //console.warn(result)
+    console.warn(result)
    }
 
    getPlaces()

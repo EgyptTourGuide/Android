@@ -3,7 +3,6 @@ import { ImageBackground, View,TouchableOpacity, SafeAreaView, Dimensions} from 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { ImageCities } from '../component/Images'
 import { Search} from '../component/Textinput';
 import Places from '../CatgoryCity/Places'
 import Hotels from '../CatgoryCity/Hotels'
@@ -75,8 +74,8 @@ export default function City (props) {
       
      >
     <Tab.Screen name="Places" initialParams={props.city} component={Places}/>
-    <Tab.Screen name="Hotels" component={Hotels}/>
-    <Tab.Screen name="Delight" component={Delight}/>
+    <Tab.Screen name="Hotels"  initialParams={props.city} component={Hotels}/>
+    <Tab.Screen name="Delight"  initialParams={props.city} component={Delight}/>
   </Tab.Navigator>
 
     )

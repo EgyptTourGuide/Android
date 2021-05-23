@@ -1,10 +1,9 @@
 import React from 'react'
 import  { useState,useEffect } from 'react';
-import { ImageBackground, View,TouchableOpacity, SafeAreaView ,Text,ScrollView,StyleSheet, Dimensions, Image, ActivityIndicator} from 'react-native' ;
+import { ImageBackground, View,TouchableOpacity,Text,ScrollView,StyleSheet, Dimensions, Image, ActivityIndicator} from 'react-native' ;
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MapView, { Marker } from 'react-native-maps'
 import { Search} from '../component/Textinput';
-import Star from '../component/StarRating';
 import { URL } from '../API/API'
 import StarRating from 'react-native-star-rating';
 

@@ -12,7 +12,7 @@ const { width, height } = Dimensions.get('window')
 
  const Card =(props)=>{
      const { width, height } = Dimensions.get('window')
-     const [Add , setAdd] = useState(false)   
+  
      const [checked, setChecked] = useState(null);
 
      const onChangeRadio = (value)=>{
@@ -29,7 +29,6 @@ const { width, height } = Dimensions.get('window')
    <View style={{width:width,justifyContent:'center',alignItems:'center',paddingTop:20,}}>
      <View style={{width:width/1.2,height:height/6.5,borderRadius:25,backgroundColor:"#fbeeac"}}>
        
-    
        <View style={styles.continerques}>
           <Text style={styles.ques}>{props.ques}</Text></View>
 
@@ -120,6 +119,7 @@ function Review(props) {
           console.warn(`Answers: ${Answars}\nRate; ${Rate}\ncomment: ${comment}`)
           try{
           const response = await Authaxios.post(`${URL}/places/${props.route.params.id}/review`, {answers: Answars, rate: Rate, comment: comment})
+
           if(response.status === 201){
             alert('Comment Created!')
             props.navigation.goBack()
