@@ -10,7 +10,7 @@ export const Input = (props) => {
             onChangeText={props.onChangeText}
             underlineColorAndroid="transparent"
             placeholder={props.placeholder}
-            placeholderTextColor="#bbbbbb"
+            placeholderTextColor={props.placeholderTextColor}
             autoCapitalize="none"
             secureTextEntry={props.secureTextEntry}
             keyboardType={props.keyboardType}

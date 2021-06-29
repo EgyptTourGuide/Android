@@ -21,19 +21,14 @@ const Registerition = (props) => {
   const [pic, setPic] = useState(null)
   const [isRegistraionSuccess, setIsRegistraionSuccess] = useState(false);
 
-  let options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }
-
-
   const _onPress = () => {
 
     try {
       launchImageLibrary({ mediaType: 'photo' }, response => {
         setPic({ uri: response.uri, type: response.type, name: response.fileName })
+        console.warn(response.uri)
+        console.warn(response.type)
+        
       })
 
     } catch (e) {
@@ -69,7 +64,6 @@ const Registerition = (props) => {
     }
     try {
       setLoading(true)
-      if (pic !== null) {
         const fd = new FormData()
         fd.append('avatar', pic)
         fd.append('fullname', FullName)
@@ -82,6 +76,7 @@ const Registerition = (props) => {
 
 
         const response = await axios.post(`${URL}/signup`, fd)
+        console.warn(fd)
         if (response.status === 201) {
           alert('Account Created')
           props.navigation.navigate('Login')
@@ -89,20 +84,6 @@ const Registerition = (props) => {
           let errors = await response.json()
           alert(errors.errors[0])
         }
-
-      } else {
-        const response = await fetch(`${URL}/signup`, {
-          ...options,
-          body: JSON.stringify(dataRegisterSend),
-        })
-
-        if (response.status === 201) {
-          alert('Account Created')
-        } else {
-          let errors = await response.json()
-          alert(errors.errors[0])
-        }
-      }
     }
     catch (e) {
       alert(e)
@@ -117,7 +98,7 @@ const Registerition = (props) => {
     country: Country,
     phone: PhoneNumber,
     password: Password,
-    username
+    username 
   };
 
   if (Registerition) {

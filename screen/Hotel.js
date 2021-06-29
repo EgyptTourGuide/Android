@@ -2,12 +2,12 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { ImageBackground, View, TouchableOpacity, Text, ScrollView, Image, Dimensions, ActivityIndicator, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Search } from '../component/Textinput';
 import { URL } from '../API/API'
 import StarRating from 'react-native-star-rating';
 import MapView, { Marker } from 'react-native-maps'
-import { MainButton } from '../component/Button';
 import axios from 'axios';
 
 const { height, width } = Dimensions.get("window")
@@ -29,12 +29,11 @@ const Header = (props) => {
   )
 }
 const Discrption = (props) => {
-  console.warn(props.rate)
+  const [liked, setLiked] = useState(false);
   return (
-    
     <ScrollView style={{ backgroundColor: "#000", width: "100%", }} contentContainerStyle={{ alignItems: 'center', }}>
       <View style={{ width: width / 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-        <View style={{ marginLeft: 5, justifyContent: 'center' }}>
+        <View style={{ marginLeft: 5, justifyContent: 'center', }}>
           <StarRating
             disabled={true}
             activeOpacity={0.5}
@@ -50,14 +49,37 @@ const Discrption = (props) => {
 
         </View>
 
-        <View style={{}}>
-          <Text style={{ color: "#fff", fontSize: 25, textAlign: 'center', fontWeight: 'bold', marginRight: 12 }}>{props.title}</Text>
+        <View style={{flexDirection:'row',paddingTop:10,height:50,}}>
+          <Text style={{ color: "#fff", fontSize: 23, textAlign: 'center', fontWeight: 'bold', marginRight: 5}}>{props.title}</Text>
+          <Text style={{ color: "#fdb827", fontSize: 25, textAlign: 'center', fontWeight: 'bold', marginRight: 12 }}>{props.stars}</Text>
+          <View style={{margin:7,right:15}}>
+          <StarRating
+            disabled={true}
+            activeOpacity={0.5}
+            emptyStar={'star-o'}
+            fullStar={'star'}
+            halfStar={'star-half-full'}
+            iconSet={'FontAwesome'}
+            maxStars={1}
+            starSize={16}
+            rating={1}
+            fullStarColor={'#fdb827'}
+          />
+
+          </View>
+          
         </View>
-        <View style={{ justifyContent: 'center' }}>
-          <Icon name='heart' size={20} color='red' style={{ marginRight: 15, }}></Icon>
+        <View style={{ justifyContent: 'center' ,marginRight: 10, }}>
+        <TouchableOpacity onPress={() => setLiked((isLiked) => !isLiked)}>
+                <AntDesign
+                  name={liked ? "heart" : "hearto"}
+                  size={25}
+                  color={liked ? "red" : "#fff"}
+                />
+              </TouchableOpacity>
         </View>
       </View>
-      <Text style={styles.Discrptions}>{props.dis}</Text>
+      <Text style={styles.Discrptions}>"{props.dis}"</Text>
     </ScrollView>
   )
 }
@@ -140,15 +162,23 @@ const Rate = (props) => {
 }
 const Card = (props) => {
   const { width, hight } = Dimensions.get('window')
+
   return (
     <View style={{ width: width, justifyContent: 'center', alignItems: 'center', marginBottom: 12 }}>
       <View style={{ width: width - 30, height: height / 4, borderRadius: 30, }}>
         <ImageBackground style={{width:width-30 ,height:height/4,backgroundColor:'gray',borderRadius:30,flexDirection:'row'}} imageStyle={{borderRadius:30}} source={{uri:props.media}}>
-          <View style={{flexDirection:'row',justifyContent:"space-between",backgroundColor:'red',alignSelf:'flex-end',width:'90%',margin:15,alignItems:'center'}}>
-            <Text style={styles.txtroom}>{props.number}</Text><View style={{marginRight:20}}><FontAwesome5 name='list-ol' color="#000" size={20}></FontAwesome5></View>
-            <Text style={styles.txtroom}>{props.bed}</Text><View style={{marginRight:20}}><FontAwesome5 name='bed' color="#000" size={23}></FontAwesome5></View>
-            <Text style={styles.txtroom}>{props.food}</Text><View style={{marginRight:20}}><FontAwesome5 name='utensils' color="#000" size={23}></FontAwesome5></View>
-            <MainButton><Text style={{color:'#fff',fontSize:22}}>{props.price}$</Text></MainButton>
+          <View style={{flexDirection:'row',justifyContent:"space-between",alignSelf:'flex-end',width:'90%',margin:15,alignItems:'center'}}>
+            <Text style={styles.txtroom}>{props.number}</Text><View style={{marginRight:25}}><FontAwesome5 name='list-ol' color="#fdb827" size={20}></FontAwesome5></View>
+            <Text style={styles.txtroom}>{props.bed}</Text><View style={{marginRight:25}}><FontAwesome5 name='bed' color="#fdb827" size={23}></FontAwesome5></View>
+            <Text style={styles.txtroom}>{props.food}</Text><View style={{marginRight:25}}><FontAwesome5 name='utensils' color="#fdb827" size={23}></FontAwesome5></View>
+             <TouchableOpacity
+              style={styles.button}
+              onPress={() =>props.navigation.navigate('Room', { room: {
+               id : room.id
+
+              }})}>
+              <Text style={{color:'#fff',fontSize:22}}>{props.price}$</Text>
+             </TouchableOpacity>
           </View>
         </ImageBackground>
       </View>
@@ -212,7 +242,7 @@ export default function Hotel(props) {
           <ImageBackground style={styles.imgbackground} source={{ uri: hotel && hotel.media[0] }}>
             <Header />
           </ImageBackground>
-          <Discrption title={hotel && hotel.name} dis={hotel && hotel.description}  rate={hotel && hotel.rate} />
+          <Discrption title={hotel && hotel.name} dis={hotel && hotel.description}  rate={hotel && hotel.rate} stars={hotel && hotel.stars} />
           <Feature FeHotel={hotel && hotel.features} />
           <Rooms scrollContainer={scrollContainer} setScroll={setScroll} Hotelrooms={hotel && hotel.rooms} />
           <Location lat={hotel && hotel.location.coordinates[0]} long={hotel && hotel.location.coordinates[1]} />
@@ -302,8 +332,8 @@ const styles = StyleSheet.create({
     fontSize: 17
   },
   txtroom:{
-    color:'#000',
+    color:'#fff',
     fontWeight:'bold',
-    fontSize:23
+    fontSize:20
   }
 })

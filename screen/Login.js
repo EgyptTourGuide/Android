@@ -7,16 +7,12 @@ import { Logo } from "../component/Images"
 import { useState } from 'react';
 import { AuthContext } from '../Auth/AuthProvider'
 import { URL } from '../API/API'
-import { ScrollView } from 'react-native-gesture-handler';
-import { Icon } from 'react-native-vector-icons'
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-
 const Login=(props)=>
 {
-
-
   const context = useContext(AuthContext)
   const [username,setusername]=useState('');
   const [Password,setPassword]=useState('');

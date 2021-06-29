@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useContext } from 'react';
-import { Text, View, StyleSheet, Dimensions, ImageBackground, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, Dimensions, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import StarRating from 'react-native-star-rating';
 import { Authaxios, URL } from '../API/API'
@@ -93,8 +93,6 @@ const CardComment = (props) => {
   )
 }
 
-
-
 function ReviewHotel(props) {
 
   const [questions, setQ] = useState([])
@@ -113,7 +111,7 @@ function ReviewHotel(props) {
       if (Rate !== 0 && comment.trim() !== '') {
         console.warn(`Answers: ${Answars}\nRate; ${Rate}\ncomment: ${comment}`)
         try {
-          const response = await Authaxios.post(`${URL}/Hotel/${props.route.params.id}/review`, { answers: Answars, rate: Rate, comment: comment })
+          const response = await Authaxios.post(`${URL}/hotels/${props.route.params.id}/review`, { answers: Answars, rate: Rate, comment: comment })
 
           if (response.status === 201) {
             alert('Comment Created!')

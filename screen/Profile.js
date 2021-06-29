@@ -3,6 +3,7 @@ import { Text, View, Button, StyleSheet, TextInput, Dimensions, TouchableOpacity
 import { Input } from '../component/Textinput';
 import { MyButton } from '../component/Button'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { launchImageLibrary } from 'react-native-image-picker'
 import { Authaxios, URL } from '../API/API';
 
 const { width, height } = Dimensions.get('window')
@@ -58,12 +59,24 @@ const profile = (props) => {
     } catch (e) {
       alert(('pic Error'))
     }
-
   }
-  const handelSubmitSave = () => {
+  const _handelSubmitSave = () => {
 
+    const response = Authaxios.post(`${URL}/profile`)
+    if (response.status === 200) {
+      setUsername
+      setFullName
+      setEmail
+      setCountry
+      setPhoneNumber
+
+    }
+    else {
+
+      alert("Error")
+    }
+    console.warn(response.data)
   }
-
 
   return (
     <ImageBackground
@@ -72,22 +85,21 @@ const profile = (props) => {
         <ScrollView contentContainerStyle={styles.scrollviewstyle}
           showsVerticalScrollIndicator={false}>
 
-
           <TouchableOpacity onPress={_onPress} style={{ backgroundColor: 'rgba(0,0,0,0.3)', borderRadius: width / 3.8, justifyContent: 'center', alignItems: 'center', marginBottom: 12, borderWidth: 1, borderColor: 'white' }}>
-            <ImageBackground resizeMode='cover' source={{ uri: pic !== null && pic }} style={{ justifyContent: 'flex-end', alignContent: 'flex-end', width: width / 1.9, height: width / 1.9, borderRadius: width / 3.8 }} imageStyle={{ borderRadius: width / 3.8 }}>
+            <ImageBackground resizeMode='cover' source={{ uri: pic !== null && pic.uri }} style={styles.ImageBackground} imageStyle={{ borderRadius: width / 3.8 }}>
               <View style={{ borderWidth: 1, borderRadius: 35 / 2, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-end', width: 35, height: 35, backgroundColor: 'white', right: 10 }}>
                 <Icon name='camera-outline' size={25} color='black' />
               </View>
             </ImageBackground>
           </TouchableOpacity>
           <Text style={styles.txt}>FullName</Text><Input value={FullName} onChangeText={(FullName) => setFullName(FullName)} />
-          <Text style={styles.txt}>Username</Text><Input value={username} disabled={false} />
-          <Text style={styles.txt}>Email</Text><Input value={Email} disabled={false} keyboardType='email-address' />
+          <Text style={styles.txtdisabled}>Username</Text><Input value={username} disabled={false} />
+          <Text style={styles.txtdisabled}>Email</Text><Input value={Email} placeholderTextColor="red" disabled={false} keyboardType='email-address' />
           <Text style={styles.txt}>Country</Text><Input value={Country} onChangeText={(Country) => setCountry(Country)} />
           <Text style={styles.txt}>PhoneNumber</Text><Input value={PhoneNumber} onChangeText={(PhoneNumber) => setPhoneNumber(PhoneNumber)} keyboardType="numeric" />
           <Text style={styles.txt}>Password</Text><Input onChangeText={(Password) => setPassword(Password)} secureTextEntry={true} />
           <Text style={styles.txt}>Confirm Password</Text><Input onChangeText={(Password) => setPassword(Password)} secureTextEntry={true} />
-          <MyButton onPress={() => handelSubmitSave()}>Save</MyButton>
+          <MyButton onPress={_handelSubmitSave}>Save</MyButton>
         </ScrollView>
       </View>
     </ImageBackground>
@@ -104,6 +116,17 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     color: '#fff'
 
+  },
+  txtdisabled: {
+    alignSelf: 'flex-start',
+    color: 'red'
+  },
+  ImageBackground: {
+    justifyContent: 'flex-end',
+    alignContent: 'flex-end',
+    width: width / 2,
+    height: width / 2,
+    borderRadius: width / 3.8
   }
 })
 export default profile;

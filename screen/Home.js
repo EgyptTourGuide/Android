@@ -14,6 +14,7 @@ import ReviewHotel from './ReviewHotel'
 import Hotel from './Hotel';
 import axios from 'axios';
 import { URL } from '../API/API';
+import Room from './Room';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator()
@@ -28,6 +29,7 @@ const Homes = (props) => {
       <Stack.Screen name='Review' component={Review} />
       <Stack.Screen name='ReviewHotel' component={ReviewHotel} />
       <Stack.Screen name='Hotel' component={Hotel} />
+      <Stack.Screen name='Room' component={Room} />
     </Stack.Navigator>
   )
 }

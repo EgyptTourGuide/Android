@@ -2,12 +2,11 @@ import React from 'react'
 import  { useState,useEffect } from 'react';
 import { ImageBackground, View,TouchableOpacity,Text,ScrollView,StyleSheet, Dimensions, Image, ActivityIndicator} from 'react-native' ;
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import MapView, { Marker } from 'react-native-maps'
 import { Search} from '../component/Textinput';
 import { URL } from '../API/API'
 import StarRating from 'react-native-star-rating';
-
-
 
 const{height,width}=Dimensions.get("window")
 
@@ -27,6 +26,7 @@ const Header = (props)=>{
 
   )}
 const Discrption=(props)=>{
+  const [liked, setLiked] = useState(false);
   return(
     
     <ScrollView style={{backgroundColor:"#000", width:"100%",}} contentContainerStyle={{alignItems:'center',}}>
@@ -47,11 +47,20 @@ const Discrption=(props)=>{
        
       </View>
       
-            <View style={{}}><Text style={{color:"#fff",fontSize:25,textAlign:'center',fontWeight:'bold',marginRight:12}}>{props.title}</Text></View>
-         
+            <View style={{}}>
+              <Text style={{color:"#fff",fontSize:25,textAlign:'center',fontWeight:'bold',marginRight:12}}>{props.title}</Text>
+              </View>
+        
+            <TouchableOpacity onPress={() => setLiked((isLiked) => !isLiked)}>
+                <AntDesign
+                  name={liked ? "heart" : "hearto"}
+                  size={28}
+                  color={liked ? "red" : "#fff"}
+                />
+              </TouchableOpacity>
+          
            
-             <View style={{justifyContent:'center'}}><Icon name='heart' size={20} color='red' style={{marginRight:15,}}></Icon></View> 
-            
+
           </View>
      
       <Text style={styles.Discrptions}>{props.dis}</Text>
@@ -60,9 +69,7 @@ const Discrption=(props)=>{
 
 const Detelis =(props)=>{
 
-  useEffect(()=>{
-
-  }, [])
+  
 
   return(
   <ScrollView style={{height:height/3.8,}}>
