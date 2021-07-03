@@ -6,6 +6,7 @@ import { Search } from '../component/Textinput';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DateField from 'react-native-datefield';
+import { Authaxios, URL } from '../API/API';
 
 const Header = (props) => {
   
@@ -21,21 +22,49 @@ const Header = (props) => {
     </View>
   )
 }
+
 const Room=(props)=> {
   const { width, height } = Dimensions.get('screen')
   const [media, setMedia] = useState([])
-  console.warn(props.route.params.media)
-  console.warn(props)
-  const uri=props.route.params.media
+  const [data, setData] = useState(null)
+  const[valueTo,setvalueTo]=useState('')
+  const[valueFrom,setvalueFrom]=useState('')
 
   useEffect(()=>{
       setMedia(props.route.params.media)
   },[])
   
+  
+
+  const handelSubmitReserve = async() => {
+  
+    if (!valueFrom || !valueTo) {
+      alert(('Please Fill Date'));
+      return;
+    }
+  
+    let to = `${valueTo.getFullYear()}-${valueTo.getMonth()+1}-${valueTo.getDate()}`
+    let from = `${valueFrom.getFullYear()}-${valueFrom.getMonth()+1}-${valueFrom.getDate()}`
+    let HotelId = props.route.params.HotelId
+    let roomId = props.route.params.id
+
+    try{
+    let result = await Authaxios.post(`${URL}/hotels/${HotelId}/request`, {from, to, roomId})
+    if(result.status=== 201){
+      alert('Your request is send')
+      console.warn('done')
+    }
+  }catch(e){
+    console.warn(e.response.data)
+    alert('Error!')
+  }
+  }
+
+
     return (
 
       <View style={styles.contain}>
-    <ScrollView>
+      <ScrollView>
           <Header />  
           {media.map(image=>
           <ImageBackground style={[styles.imgbackground,{ height: height / 3.7, margin: 3,}]}  source={{uri: image}}>        
@@ -57,8 +86,6 @@ const Room=(props)=> {
             
           </View>
 
-
-
             <Text style={styles.txt}>Duration</Text>
         </View>
               <View style={{flexDirection:'row',alignSelf:'center',paddingVertical:10,}}>
@@ -66,23 +93,23 @@ const Room=(props)=> {
                     labelDate="DD"
                     labelMonth="MM"
                     labelYear= "YYYY"
-                  onSubmit={(valueFrom) => console.warn(valueFrom)}
-                  styleInput={styles.styleInput}
-                  containerStyle={styles.containerStyle}
+                    onSubmit={(value) => setvalueFrom(value)}
+                    styleInput={styles.styleInput}
+                    containerStyle={styles.containerStyle}
                 />
                 <Text style={{color:'#fff',alignSelf:'center'}}>To</Text>
                   <DateField
                    labelDate="DD"
                    labelMonth="MM"
                    labelYear= "YYYY"
-                  onSubmit={(valueTo) => console.warn(valueTo)}
-                  styleInput={styles.styleInput}
-                  containerStyle={styles.containerStyle}
+                   onSubmit={(value) => setvalueTo(value)}
+                   styleInput={styles.styleInput}
+                   containerStyle={styles.containerStyle}
                 />
               </View>
                   <TouchableOpacity
                     style={styles.button}
-                    onPress={()=>props.navigation.navigate('Ticket')}
+                    onPress={()=> handelSubmitReserve()}
                     >
                       <Text style={{textAlign:'center',fontSize:20}}>Reserve</Text>
                   </TouchableOpacity>

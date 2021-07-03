@@ -175,6 +175,8 @@ const Card = (props) => {
              <TouchableOpacity
               style={styles.button}
               onPress={() => props.navigation.navigate('Room',{
+                id:props.id ,
+                HotelId: props.HotelId,
                 media:props.media ,
                 price:props.price,
                 number:props.number,
@@ -199,6 +201,7 @@ const Rooms = (props) => {
       <View>
        {props.Hotelrooms.length > 0 && props.Hotelrooms.map(room=><Card
               {...props}
+              id={room.id}
               bed={room.bed}
               number={room.number}
               price={room.price}
@@ -249,7 +252,7 @@ export default function Hotel(props) {
           </ImageBackground>
           <Discrption title={hotel && hotel.name} dis={hotel && hotel.description}  rate={hotel && hotel.rate} stars={hotel && hotel.stars} />
           <Feature FeHotel={hotel && hotel.features} />
-          <Rooms {...props} scrollContainer={scrollContainer} setScroll={setScroll} Hotelrooms={hotel && hotel.rooms} />
+          <Rooms {...props} scrollContainer={scrollContainer} setScroll={setScroll} HotelId={hotel.id} Hotelrooms={hotel && hotel.rooms} />
           <Location lat={hotel && hotel.location.coordinates[0]} long={hotel && hotel.location.coordinates[1]} />
 
 

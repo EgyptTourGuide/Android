@@ -20,7 +20,6 @@ import Ticket from './Ticket';
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator()
 
-
 const Homes = (props) => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: true }}>
@@ -35,9 +34,7 @@ const Homes = (props) => {
     </Stack.Navigator>
   )
 }
-
 const Header = (props) => {
-
   return (
     <View style={{ width: '100%', alignItems: 'center', flexDirection: 'row', padding: 12, justifyContent: 'space-between' }}>
       <ImageBackground
@@ -48,11 +45,8 @@ const Header = (props) => {
     </View>
   )
 }
-
-
 const Card = (props) => {
   const { width, hight } = Dimensions.get('window')
-
   return (
     <TouchableOpacity activeOpacity={0.5} style={{ width: width, justifyContent: 'center', alignItems: 'center', height: 200 }}>
       <ImageBackground style={{ width: width - 30, backgroundColor: 'gray', resizeMode: 'cover', flex: 1, padding: 10, justifyContent: 'flex-end', borderRadius: 30 }} source={props.image && { uri: props.image }} imageStyle={{ borderRadius: 30 }}>
@@ -63,23 +57,17 @@ const Card = (props) => {
 }
 
 const Home = (props) => {
-
   const { height } = Dimensions.get('window')
   const [activities, setActivities] = useState([])
 
   useEffect(() => {
-
-    async function getActivity() {
-      const res = await axios.get(`${URL}/activity`)
-      console.warn(res.data)
-      setActivities(res.data)
-
+      async function getActivity() {
+        const res = await axios.get(`${URL}/activity`)
+        console.warn(res.data)
+        setActivities(res.data)
     }
-
     getActivity()
-
   }, [])
-
 
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
@@ -94,17 +82,12 @@ const Home = (props) => {
           showsHorizontalScrollIndicator={false}
         >
           {activities.length > 0 && activities.map((activity) => <Card image={activity.media[0]} key={activity.id} />)}
-
-
         </ScrollView>
       </View>
       <Tabs />
     </View>
-
   );
 }
-
-
 
 const Tabs = (props) => (
   <Tab.Navigator
@@ -120,6 +103,5 @@ const Tabs = (props) => (
     <Tab.Screen name="Advanture" component={Advanture} />
   </Tab.Navigator>
 )
-
 
 export default Homes;

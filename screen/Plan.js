@@ -9,23 +9,35 @@ const Ticket=(props)=> {
 
     return (
       <View style={styles.contain}>
-        <DateField
-                  labelDate="DD"
-                  labelMonth="MM"
-                  labelYear= "YYYY"
-                  onSubmit={(value) => console.warn(value)}
-                  styleInput={styles.styleInput}
-                  containerStyle={styles.containerStyle}
-                />
+                  <View style={{flexDirection:'row',borderRadius:20,borderBottomWidth:1,borderBottomColor:'#fff',width:'80%',height:110,padding:15}}>
+
+             <View style={{justifyContent:'center',right:30}}>
+                <ImageBackground
+                  source={require('../pic/logo.png')}
+                  style={{width:45,height:45,backgroundColor:'red'}}/>
+                
+             </View>
+             <View>
+                  <Text style={{fontSize:19,fontWeight:'bold',color:'#fff',padding:5}}>Hotel NAme</Text>
+                 <Text style={{color:'#fff',fontSize:16,textAlign:'center'}}>
+                    "Hi hossam hlloe in egypt tour guide team project in Cs"</Text>
+
+                  <Text style={{color:'#fff',textAlign:'right',padding:5}}>09.00AM</Text>
+              
+             </View>
+           
+              
+            </View>
       </View>
     );
   }
-  const styles=StyleSheet.create({
+  const styles=StyleSheet.create({          
 
     contain:{
-        height:100,
+       
         flex:1,
         backgroundColor:'#000',
+        alignItems:'center'
 
     },
     styleInput:{

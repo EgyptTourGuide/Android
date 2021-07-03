@@ -7,14 +7,11 @@ export const AuthContext = createContext({
     logout: ()=>{},
     saveUser: async()=>{}
 })
-
-
 export class AuthProvider extends React.Component{
 
     state = {
         user: null
     }
-
     render(){
     return(
         <AuthContext.Provider
@@ -25,7 +22,6 @@ export class AuthProvider extends React.Component{
                     console.warn(newUser)
                     await AsyncStorage.setItem('user', JSON.stringify(newUser))
                     this.setState({user: newUser})
-
                 }catch(e){
                     console.log(e)
                 }
@@ -34,7 +30,6 @@ export class AuthProvider extends React.Component{
                 console.warn(newUser)
                 this.setState({user: newUser})
             },
-
             logout: async()=>{
                 try{
                     await AsyncStorage.removeItem('user')
@@ -47,8 +42,7 @@ export class AuthProvider extends React.Component{
             }}
         >
          {this.props.children}
-        </AuthContext.Provider>
+       </AuthContext.Provider>
     )
     }
-
 }

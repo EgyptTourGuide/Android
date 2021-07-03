@@ -129,12 +129,10 @@ function Review(props) {
             <Text style={styles.buttonText}>Submit</Text>
           </View>
         </TouchableOpacity>
-
       </ScrollView>
     </View>
   )
 }
-
 const styles = StyleSheet.create({
   ques: {
     fontSize: 18,

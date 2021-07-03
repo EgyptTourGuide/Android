@@ -1,7 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet, Text, Image, View } from 'react-native'
 
-
 export const MyButton = (props) => {
   return (
     <TouchableOpacity
