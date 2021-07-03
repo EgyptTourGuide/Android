@@ -15,13 +15,9 @@ export const Input = (props) => {
             secureTextEntry={props.secureTextEntry}
             keyboardType={props.keyboardType}
             editable={props.disabled}
-
         />
-
     )
-
 }
-
 
 export const Search = (props) => {
 

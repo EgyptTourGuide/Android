@@ -1,8 +1,11 @@
 
 import React from 'react';
-import { Text,Button,View ,StyleSheet,ImageBackground} from 'react-native';
+import { Text,Button,View ,StyleSheet,ImageBackground, SegmentedControlIOS} from 'react-native';
+import { useState, useEffect } from 'react';
 import { Search} from '../component/Textinput';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+
 
 
 const Header = (props)=>{
@@ -17,7 +20,31 @@ const Header = (props)=>{
     </View>
   )
 }
-const Notification=()=> {
+const Notification=(props)=> {
+  console.warn(props)
+  const [Notification, setNotification] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+
+    async function getNotification() {
+  
+      try {
+        const result = await axios.get(`${URL}/Notification`)
+        if (result.status === 200) {
+          setNotification(result.data)
+  
+        } else return
+      } catch (e) {
+        setLoading(false)
+        return
+      }
+      setLoading(false)
+    }
+  
+    getNotification()
+  
+  }, [])
     return (
       <View style={styles.contain}>
         <View style={{backgroundColor:'green'}}><Header /></View>

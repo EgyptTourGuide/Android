@@ -15,6 +15,7 @@ import Hotel from './Hotel';
 import axios from 'axios';
 import { URL } from '../API/API';
 import Room from './Room';
+import Ticket from './Ticket';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator()
@@ -22,7 +23,7 @@ const Stack = createStackNavigator()
 
 const Homes = (props) => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: true }}>
       <Stack.Screen name='Home' component={Home} />
       <Stack.Screen name='City' component={City} />
       <Stack.Screen name='Place' component={Place} />
@@ -30,6 +31,7 @@ const Homes = (props) => {
       <Stack.Screen name='ReviewHotel' component={ReviewHotel} />
       <Stack.Screen name='Hotel' component={Hotel} />
       <Stack.Screen name='Room' component={Room} />
+      <Stack.Screen name='Ticket' component={Ticket} />
     </Stack.Navigator>
   )
 }

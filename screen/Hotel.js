@@ -161,22 +161,26 @@ const Rate = (props) => {
   )
 }
 const Card = (props) => {
+  console.warn(props)
   const { width, hight } = Dimensions.get('window')
-
+  const [Room ,setroom]=useState(null)
   return (
     <View style={{ width: width, justifyContent: 'center', alignItems: 'center', marginBottom: 12 }}>
       <View style={{ width: width - 30, height: height / 4, borderRadius: 30, }}>
-        <ImageBackground style={{width:width-30 ,height:height/4,backgroundColor:'gray',borderRadius:30,flexDirection:'row'}} imageStyle={{borderRadius:30}} source={{uri:props.media}}>
+        <ImageBackground style={{width:width-30 ,height:height/4,backgroundColor:'gray',borderRadius:30,flexDirection:'row'}} imageStyle={{borderRadius:30}} source={{uri:props.media[0]}}>
           <View style={{flexDirection:'row',justifyContent:"space-between",alignSelf:'flex-end',width:'90%',margin:15,alignItems:'center'}}>
             <Text style={styles.txtroom}>{props.number}</Text><View style={{marginRight:25}}><FontAwesome5 name='list-ol' color="#fdb827" size={20}></FontAwesome5></View>
             <Text style={styles.txtroom}>{props.bed}</Text><View style={{marginRight:25}}><FontAwesome5 name='bed' color="#fdb827" size={23}></FontAwesome5></View>
             <Text style={styles.txtroom}>{props.food}</Text><View style={{marginRight:25}}><FontAwesome5 name='utensils' color="#fdb827" size={23}></FontAwesome5></View>
              <TouchableOpacity
               style={styles.button}
-              onPress={() =>props.navigation.navigate('Room', { room: {
-               id : room.id
-
-              }})}>
+              onPress={() => props.navigation.navigate('Room',{
+                media:props.media ,
+                price:props.price,
+                number:props.number,
+                bed:props.bed,
+                food:props.food
+                })}>
               <Text style={{color:'#fff',fontSize:22}}>{props.price}$</Text>
              </TouchableOpacity>
           </View>
@@ -194,10 +198,11 @@ const Rooms = (props) => {
       <View><Text style={{ color: 'white', fontSize: 24, fontWeight: "bold", marginLeft: 15 }}>Rooms</Text></View>
       <View>
        {props.Hotelrooms.length > 0 && props.Hotelrooms.map(room=><Card
+              {...props}
               bed={room.bed}
               number={room.number}
               price={room.price}
-              media={room.media[0]}
+              media={room.media}
               food={room.food}
           />)}
       </View>
@@ -244,7 +249,7 @@ export default function Hotel(props) {
           </ImageBackground>
           <Discrption title={hotel && hotel.name} dis={hotel && hotel.description}  rate={hotel && hotel.rate} stars={hotel && hotel.stars} />
           <Feature FeHotel={hotel && hotel.features} />
-          <Rooms scrollContainer={scrollContainer} setScroll={setScroll} Hotelrooms={hotel && hotel.rooms} />
+          <Rooms {...props} scrollContainer={scrollContainer} setScroll={setScroll} Hotelrooms={hotel && hotel.rooms} />
           <Location lat={hotel && hotel.location.coordinates[0]} long={hotel && hotel.location.coordinates[1]} />
 
 
@@ -263,7 +268,6 @@ export default function Hotel(props) {
           </View>
 
           <Rate rate={hotel && hotel.rate} reviews={hotel && hotel.reviews} />
-
         </ScrollView>
 
       </View>
