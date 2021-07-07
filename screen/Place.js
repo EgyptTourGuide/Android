@@ -1,30 +1,15 @@
 import React from 'react'
 import  { useState,useEffect } from 'react';
 import { ImageBackground, View,TouchableOpacity,Text,ScrollView,StyleSheet, Dimensions, Image, ActivityIndicator} from 'react-native' ;
-import Icon from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MapView, { Marker } from 'react-native-maps'
-import { Search} from '../component/Textinput';
 import { URL } from '../API/API'
 import StarRating from 'react-native-star-rating';
+import Header from '../component/Header';
 
 const{height,width}=Dimensions.get("window")
 
-const Header = (props)=>{
 
-  return(
-    <View style={{alignSelf:'flex-start'}}>
-          <View style={{width: '100%',alignItems: 'center', flexDirection: 'row', padding: 12, justifyContent: 'space-between'}}>
-               <ImageBackground
-                source={require('../pic/logo.png')}
-                style={{width:45,height:45,backgroudColor:'blue'}}/>
-              <Search/>
-              <Icon  name="filter" size={30} color="white"/>
-          </View>
-         
-    </View>
-
-  )}
 const Discrption=(props)=>{
   const [liked, setLiked] = useState(false);
   return(
@@ -68,14 +53,8 @@ const Discrption=(props)=>{
   )}
 
 const Detelis =(props)=>{
-
-  
-
   return(
   <ScrollView style={{height:height/3.8,}}>
-
-   
-
    <View style={{flexDirection:'row',justifyContent:'space-evenly',borderWidth:0,borderColor:"#fff",width:"100%",alignSelf:'center',padding:2}}>
    <Text style={{color:'#fff',fontSize:25,right:35}}>Tickets</Text>
    
@@ -179,8 +158,6 @@ const Location=(props)=>{
    </View>
   )}
 
-   
-
 export default function Place (props){
 
       const [ place, setPlace ] = useState(null)
@@ -191,7 +168,7 @@ export default function Place (props){
       async function getPlace(){
 
         try{
-          const id = props.route.params.Place.id
+        const id = props.route.params.Place.id
         const result = await fetch(`${URL}/places/${id}`)
         if(result.status === 200){
         const jsonData = await result.json()

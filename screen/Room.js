@@ -2,26 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { Text,TouchableOpacity,View ,StyleSheet,Dimensions,TextInput,ImageBackground, ScrollView} from 'react-native';
-import { Search } from '../component/Textinput';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DateField from 'react-native-datefield';
 import { Authaxios, URL } from '../API/API';
+import Header from '../component/Header';
 
-const Header = (props) => {
-  
-  return (
-    <View style={{ alignSelf: 'flex-start' ,backgroundColor:'#000'}}>
-      <View style={{ width: '100%', alignItems: 'center', flexDirection: 'row', padding: 12, justifyContent: 'space-between' }}>
-        <ImageBackground
-          source={require('../pic/logo.png')}
-          style={{ width: 45, height: 45, backgroudColor: 'blue' }} />
-        <Search />
-        <Icon name="filter" size={30} color="white" />
-      </View>
-    </View>
-  )
-}
 
 const Room=(props)=> {
   const { width, height } = Dimensions.get('screen')
@@ -52,7 +37,7 @@ const Room=(props)=> {
     let result = await Authaxios.post(`${URL}/hotels/${HotelId}/request`, {from, to, roomId})
     if(result.status=== 201){
       alert('Your request is send')
-      console.warn('done')
+      
     }
   }catch(e){
     console.warn(e.response.data)
@@ -65,9 +50,10 @@ const Room=(props)=> {
 
       <View style={styles.contain}>
       <ScrollView>
-          <Header />  
+         
           {media.map(image=>
-          <ImageBackground style={[styles.imgbackground,{ height: height / 3.7, margin: 3,}]}  source={{uri: image}}>        
+          <ImageBackground style={[styles.imgbackground,{ height: height / 3.1 }]}  source={{uri: image}}>  
+           <Header />        
           </ImageBackground>)}
       
         <View style={{alignContent:'flex-end',padding:15,}}>

@@ -12,39 +12,32 @@ import Place from '../screen/Place';
 import Review from './Review'
 import ReviewHotel from './ReviewHotel'
 import Hotel from './Hotel';
+import Activity from './Activity';
 import axios from 'axios';
-import { URL } from '../API/API';
 import Room from './Room';
 import Ticket from './Ticket';
+import { URL } from '../API/API';
+import Header from '../component/Header';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator()
 
 const Homes = (props) => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Home' component={Home} />
       <Stack.Screen name='City' component={City} />
       <Stack.Screen name='Place' component={Place} />
       <Stack.Screen name='Review' component={Review} />
       <Stack.Screen name='ReviewHotel' component={ReviewHotel} />
       <Stack.Screen name='Hotel' component={Hotel} />
+      <Stack.Screen name='Activity' component={Activity} />
       <Stack.Screen name='Room' component={Room} />
       <Stack.Screen name='Ticket' component={Ticket} />
     </Stack.Navigator>
   )
 }
-const Header = (props) => {
-  return (
-    <View style={{ width: '100%', alignItems: 'center', flexDirection: 'row', padding: 12, justifyContent: 'space-between' }}>
-      <ImageBackground
-        source={require('../pic/logo.png')}
-        style={{ width: 45, height: 45, backgroudColor: 'blue' }} />
-      <Search />
-      <Icon name="filter" size={30} color="white" />
-    </View>
-  )
-}
+
 const Card = (props) => {
   const { width, hight } = Dimensions.get('window')
   return (
@@ -63,7 +56,6 @@ const Home = (props) => {
   useEffect(() => {
       async function getActivity() {
         const res = await axios.get(`${URL}/activity`)
-        console.warn(res.data)
         setActivities(res.data)
     }
     getActivity()

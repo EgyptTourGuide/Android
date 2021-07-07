@@ -1,31 +1,18 @@
 import React, { useEffect } from 'react'
 import { ImageBackground, View,TouchableOpacity, SafeAreaView, Dimensions} from 'react-native' ;
-import Icon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { Search} from '../component/Textinput';
 import Places from '../CatgoryCity/Places'
 import Hotels from '../CatgoryCity/Hotels'
 import Delight from '../CatgoryCity/Delight'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Star from '../component/StarRating';
-
+import Header from '../component/Header';
 
 
 const Tab = createMaterialTopTabNavigator();
 
-const Header = (props)=>{
 
-  return(
-    <View style={{width: '100%',alignItems: 'center', flexDirection: 'row', padding: 12, justifyContent: 'space-between',}}>
-               <ImageBackground
-                source={require('../pic/logo.png')}
-                style={{width:45,height:45,marginLeft:10}}/>
-              <Search/>
-              <Icon  name="filter" size={30} color="white"/>
-    </View>
-  )
-}
 const Footer =(props)=>{
 return(
  
@@ -37,9 +24,6 @@ return(
 
 )
 }
-
-
-
 
 export default function City (props) {
 

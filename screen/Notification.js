@@ -1,28 +1,11 @@
 
 import React from 'react';
-import { Text,Button,View ,StyleSheet,ImageBackground,  ScrollView} from 'react-native';
+import { Text,Button,View ,StyleSheet,ImageBackground,  ScrollView,ActivityIndicator} from 'react-native';
 import { useState, useEffect } from 'react';
-import { Search} from '../component/Textinput';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { Authaxios, URL } from '../API/API';
+import Header from '../component/Header';
 
-const Header = (props)=>{
 
-  return(
-    <View style={{width: '100%',alignItems: 'center', flexDirection: 'row', padding: 12, justifyContent: 'space-between',}}>
-               <ImageBackground
-                source={require('../pic/logo.png')}
-                style={{width:45,height:45,marginLeft:10}}/>
-              <Search/>
-              <Icon  name="filter" size={30} color="white"/>
-    </View>
-  )
-}
-const CardNotifi=(props)=>{
-  return(  <View style={{width:'90%',height:40,backgroundColor:'#000',}}>
-
-  </View>)
-}
 const notifications=(props)=> {
 
   const [notifications, setnotifications] = useState('');
@@ -49,6 +32,9 @@ const notifications=(props)=> {
     getnotifications()
   
   }, [])
+
+  if(loading)return <View style={{flex: 1, backgroundColor: 'black', justifyContent: 'center', alignItems: 'center'}}><ActivityIndicator color='white' size={25}/></View>
+  else 
     return (
       <ScrollView contentContainerStyle={styles.scrollviewstyle}
       showsVerticalScrollIndicator={true} >

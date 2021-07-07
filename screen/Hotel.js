@@ -1,33 +1,17 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { ImageBackground, View, TouchableOpacity, Text, ScrollView, Image, Dimensions, ActivityIndicator, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { Search } from '../component/Textinput';
 import { URL } from '../API/API'
 import StarRating from 'react-native-star-rating';
 import MapView, { Marker } from 'react-native-maps'
 import axios from 'axios';
+import Header from '../component/Header';
 
 const { height, width } = Dimensions.get("window")
 
-const Header = (props) => {
 
-  return (
-    <View style={{ alignSelf: 'flex-start' }}>
-      <View style={{ width: '100%', alignItems: 'center', flexDirection: 'row', padding: 12, justifyContent: 'space-between' }}>
-        <ImageBackground
-          source={require('../pic/logo.png')}
-          style={{ width: 45, height: 45, backgroudColor: 'blue' }} />
-        <Search />
-        <Icon name="filter" size={30} color="white" />
-      </View>
-
-    </View>
-
-  )
-}
 const Discrption = (props) => {
   const [liked, setLiked] = useState(false);
   return (

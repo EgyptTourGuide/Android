@@ -1,8 +1,7 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, ScrollView, ImageBackground } from 'react-native';
 
-import { useState } from 'react';
 import { URL } from '../API/API'
 import StarRating from 'react-native-star-rating';
 
@@ -53,7 +52,7 @@ const Hotels = (props) => {
       const response = await fetch(`${URL}/hotels?city=${props.route.params.id}`)
       let result = await response.json()
       sethotels(result)
-      console.warn(result)
+      
     }
 
     getHotels()
