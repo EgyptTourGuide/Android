@@ -66,7 +66,7 @@ const Detelis =(props)=>{
         style={{width:30,height:30,marginRight:6}}>
 
         </ImageBackground>
-     <Text style={{color: 'white',fontSize:18,}}>: {props.ticket.egyptian.price} EGP</Text>
+        <Text style={{color: 'white',fontSize:18,}}>: {props.ticket.egyptian.price} EGP</Text>
       </View>
     
      <View style={{width:70,flexDirection:'row',alignItems:'center'}}>

@@ -29,8 +29,7 @@ export default function City (props) {
 
     const { height, width } = Dimensions.get('window')
 
-    useEffect(()=>{
-    }, [])
+    
     
     return(
 

@@ -1,12 +1,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
-import { Search } from '../component/Textinput';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Advanture from '../categories/Advanture'
 import Cities from '../categories/Cities'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack'
+import { URL } from '../API/API';
 import City from './City';
 import Place from '../screen/Place';
 import Review from './Review'
@@ -16,8 +15,8 @@ import Activity from './Activity';
 import axios from 'axios';
 import Room from './Room';
 import Ticket from './Ticket';
-import { URL } from '../API/API';
 import Header from '../component/Header';
+import Favplans from './Favplans';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator()
@@ -27,6 +26,7 @@ const Homes = (props) => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Home' component={Home} />
       <Stack.Screen name='City' component={City} />
+      <Stack.Screen name='Favplans' component={Favplans} />
       <Stack.Screen name='Place' component={Place} />
       <Stack.Screen name='Review' component={Review} />
       <Stack.Screen name='ReviewHotel' component={ReviewHotel} />
@@ -42,7 +42,8 @@ const Card = (props) => {
   const { width, hight } = Dimensions.get('window')
   return (
     <TouchableOpacity activeOpacity={0.5} style={{ width: width, justifyContent: 'center', alignItems: 'center', height: 200 }}>
-      <ImageBackground style={{ width: width - 30, backgroundColor: 'gray', resizeMode: 'cover', flex: 1, padding: 10, justifyContent: 'flex-end', borderRadius: 30 }} source={props.image && { uri: props.image }} imageStyle={{ borderRadius: 30 }}>
+      <ImageBackground style={{ width: width - 30, backgroundColor: 'gray', resizeMode: 'cover', flex: 1, padding: 10, justifyContent: 'flex-end', borderRadius: 30 }} 
+      source={props.image && { uri: props.image }} imageStyle={{ borderRadius: 30 }}>
 
       </ImageBackground>
     </TouchableOpacity>
@@ -57,6 +58,7 @@ const Home = (props) => {
       async function getActivity() {
         const res = await axios.get(`${URL}/activity`)
         setActivities(res.data)
+        console.warn(res.data)
     }
     getActivity()
   }, [])

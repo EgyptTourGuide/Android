@@ -2,7 +2,7 @@ import  React from 'react';
 import  Login from './screen/Login'
 import  Signup from './screen/Signup'
 import  Notification from "./screen/Notification";
-import  Plan from "./screen/Plan";
+import  AddPlan from "./screen/AddPlan";
 import  Profile from "./screen/Profile";
 import  Home from './screen/Home'
 import  { NavigationContainer } from '@react-navigation/native'
@@ -94,7 +94,7 @@ const Authorized = ()=>(
             if(route.name === 'Home') iconName = 'home' 
             if(route.name === 'Profile') iconName = 'user'
             if(route.name ==='Notification') iconName ='bell'
-            if(route.name === 'Plan') iconName = 'plus'
+            if(route.name === 'AddPlan') iconName = 'plus'
             if(route.name === 'Favplans') iconName = 'plane'
             
           return <Icon name={iconName} size={25} color={color} />;
@@ -108,7 +108,7 @@ const Authorized = ()=>(
       
       <Tab.Screen name='Home' component={Home} />
       <Tab.Screen name='Favplans' component={Favplans}   />
-      <Tab.Screen name='Plan' component={Plan} />
+      <Tab.Screen name='AddPlan' component={AddPlan} />
       <Tab.Screen name='Notification' component={Notification} options={{ tabBarBadge: 1}} />
       <Tab.Screen name='Profile' component={Profile} />
   

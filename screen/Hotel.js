@@ -8,12 +8,42 @@ import StarRating from 'react-native-star-rating';
 import MapView, { Marker } from 'react-native-maps'
 import axios from 'axios';
 import Header from '../component/Header';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { height, width } = Dimensions.get("window")
 
 
 const Discrption = (props) => {
   const [liked, setLiked] = useState(false);
+  
+  const handleLike =  ()=>{
+    if (liked ==true|| liked ==false) {
+     setLiked((!liked))
+     AsyncStorage.setItem('love', JSON.stringify(liked));
+     console.warn(liked)
+    }
+ }
+ useEffect(() => {
+
+   async function getLiked() {
+     try {
+      
+       const result = await Authaxios.post(`${URL}/profile/favourites`)
+       if (result.status === 200) {
+        
+
+       } else return
+     } catch (e) {
+       setLoading(false)
+       return
+     }
+     setLoading(false)
+   }
+
+   getLiked()
+
+ }, [])
+
   return (
     <ScrollView style={{ backgroundColor: "#000", width: "100%", }} contentContainerStyle={{ alignItems: 'center', }}>
       <View style={{ width: width / 1, flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -54,7 +84,7 @@ const Discrption = (props) => {
           
         </View>
         <View style={{ justifyContent: 'center' ,marginRight: 10, }}>
-        <TouchableOpacity onPress={() => setLiked((isLiked) => !isLiked)}>
+        <TouchableOpacity onPress={() => handleLike()}>
                 <AntDesign
                   name={liked ? "heart" : "hearto"}
                   size={25}
@@ -104,11 +134,11 @@ const Location = (props) => {
 }
 const Feature = (props) => {
   return (
-    <View style={{borderWidth:1 ,borderColor:'#fff',borderRadius:25 }}>
+    <View>
       <Text style={{ color: "#fff", fontSize: 25, fontWeight: 'bold', marginLeft: 10 }}>Features</Text>
        <View style={{flexDirection:'column',width:150,}}>
-         <View style={{  flexDirection: 'column',paddingHorizontal:15 }}>
-           {props.FeHotel.length > 0 && props.FeHotel.map(features =><Text style={styles.txt}>*{features}</Text>)}
+         <View style={{ flexDirection:'row',flexWrap:'wrap-reverse',paddingHorizontal :10,width:180}}>
+           {props.FeHotel.length > 0 && props.FeHotel.map(features =><Text style={styles.txt}>#{features}</Text>)}
             </View>
        </View>
     </View>
@@ -145,7 +175,7 @@ const Rate = (props) => {
   )
 }
 const Card = (props) => {
-  console.warn(props)
+  
   const { width, hight } = Dimensions.get('window')
   const [Room ,setroom]=useState(null)
   return (
@@ -177,11 +207,11 @@ const Card = (props) => {
 }
 const Rooms = (props) => {
 
-  const { width, height } = Dimensions.get('screen')
+
 
   return (
     <View style={{ flexDirection: 'column' }}>
-      <View><Text style={{ color: 'white', fontSize: 24, fontWeight: "bold", marginLeft: 15 }}>Rooms</Text></View>
+      <View><Text style={{ color: 'white', fontSize: 24, fontWeight: "bold", marginLeft: 15 ,paddingVertical:10}}>Rooms</Text></View>
       <View>
        {props.Hotelrooms.length > 0 && props.Hotelrooms.map(room=><Card
               {...props}
@@ -249,7 +279,7 @@ export default function Hotel(props) {
                 style={styles.button}
                 onPress={() => hotel && props.navigation.navigate('ReviewHotel', { questions: hotel.questions, id: hotel.id })}
               >
-                <Text style={styles.txt}>Add Review</Text>
+                <Text style={{color:'#fff', fontWeight: 'bold',fontSize: 15,}}>Add Review</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -305,7 +335,7 @@ const styles = StyleSheet.create({
   txt: {
     fontWeight: 'bold',
     fontSize: 18,
-    color: '#fff',
+    color: '#fdb827',
   },
   timetable: {
     color: 'white',
