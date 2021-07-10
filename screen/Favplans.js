@@ -2,9 +2,11 @@
 import React from 'react';
 import { Text,Button,View ,StyleSheet} from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import Favorite from '../categoryFav&Plan/Favorite'
-import Myplans from '../categoryFav&Plan/Myplans'
+import Favorite from '../categoryFav&Plan/Favorite';
+import Myplans from '../categoryFav&Plan/Myplans';
 import Package from '../categoryFav&Plan/Package';
+import Plan from '../categoryFav&Plan/Plan';
+import Check from '../categoryFav&Plan/Check';
 import { createStackNavigator } from '@react-navigation/stack';
 
 
@@ -18,6 +20,8 @@ const Homes = (props) => {
         <Stack.Screen name='Favplans' component={Favplans} />
        <Stack.Screen name='Myplans' component={Myplans} />
        <Stack.Screen name='Package' component={Package} />
+       <Stack.Screen name='Plan' component={Plan} />
+       <Stack.Screen name='Check' component={Check} />
    
     </Stack.Navigator>
   )
@@ -46,7 +50,7 @@ const Favplans=(props)=> {
         style: { backgroundColor: 'rgba(0,0,0,0.0)' }
       }}
     >
-      <Tab.Screen name="Myplans"  initialParams={{city: props.city}} component={Myplans} />
+      <Tab.Screen name="Myplans"  initialParams={{city: props.city}} component={Myplans}  />
       <Tab.Screen name="Favorite" initialParams={{city: props.city}} component={Favorite} />
     </Tab.Navigator>
   )

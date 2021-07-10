@@ -6,20 +6,20 @@ import Header from '../component/Header';
 import { URL } from '../API/API';
 import axios from 'axios';
 
-
-
 const Card = (props) => {
     const { width, hight } = Dimensions.get('window')
+    
     return (
       <TouchableOpacity activeOpacity={0.7}
           style={{ width: width-30,height:height/6, justifyContent: 'center', 
-                 alignItems: 'center',borderColor:'#000',borderWidth:1,borderRadius:20 ,backgroundColor:'#fff',marginTop:10,marginBottom:10}}>
-  
+             alignItems: 'center',borderColor:'#000',borderWidth:1,borderRadius:20 ,backgroundColor:'#fff',marginTop:10,marginBottom:10}}
+             onPress={props.onPress} >
+         
         <ImageBackground style={{width:width/2.3,height:height/6.8,alignSelf:'flex-start',resizeMode: 'cover'
          ,flex:1,margin:7}}
           source={props.image && { uri: props.image }} imageStyle={{ borderRadius:23}}>
             <View style={{}}>
-          
+                  <Text  style={{color:'#000',fontSize:14,fontWeight:'bold',paddingVertical:5}}>{props.id}</Text>
             </View>
         </ImageBackground>
         
@@ -30,8 +30,6 @@ const Card = (props) => {
                       <Text style={{color:'#000',fontSize:14,fontWeight:'bold',paddingVertical:5}}> {props.ticket.egyptian}EGP  {props.ticket.foreign}USD  {props.duration.hours}hours</Text>
                    </View>
                  </View>
-              
-         
               </View>
         
       </TouchableOpacity>
@@ -50,7 +48,7 @@ const Card = (props) => {
            const result = await axios.get(`${URL}/plans`)
            if (result.status === 200) {
             settours(result.data.plans)
-            console.warn(result.data)
+            
    
            } else return
          } catch (e) {
@@ -68,7 +66,16 @@ const Card = (props) => {
          <View style={styles.contain}>
            <Header />
            <View style={{}}>
-             {tours.length > 0 && tours.map((e)=> <Card image={e.media[0]} title={e.title} ticket={e.ticket} duration={e.duration}  />)} 
+             {tours.length > 0 && tours.map((e)=>
+              <Card 
+                image={e.media[0]} 
+                title={e.title}
+                ticket={e.ticket} 
+                duration={e.duration}
+                id={e.id}
+                {...props}
+                onPress={() => props.navigation.navigate('Plan',{ id: e.id, })}
+                />)} 
            </View>
          </View>
        );

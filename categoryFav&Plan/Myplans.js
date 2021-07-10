@@ -3,6 +3,8 @@ import { Text,Button,View ,StyleSheet,Dimensions,ImageBackground,TouchableOpacit
 import axios from 'axios';
 import { URL } from '../API/API'
 import Package from './Package';
+import Plan from './Plan'
+import ReviewPlan from './ReviewPlan';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator()
@@ -73,7 +75,8 @@ const Myplans=(props)=> {
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='cityPlans'>
       <Stack.Screen name='cityPlans' component={Myplans} />
       <Stack.Screen name='Plans' component={Package} />
-      <Stack.Screen name='Plan' component={()=><View />} />
+      <Stack.Screen name='Plan' component={Plan} />
+      <Stack.Screen name='ReviewPlan' component={ReviewPlan} />
       </Stack.Navigator>
     )
   }
@@ -83,7 +86,6 @@ const Myplans=(props)=> {
 
     contain:{
         flex:1,
-        
         backgroundColor:'#000'
     },
     button:{
